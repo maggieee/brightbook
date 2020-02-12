@@ -51,13 +51,36 @@ def load_posts():
     # Read posts.txt file and insert data
     for row in open("seed_data/posts.txt"):
         row = row.rstrip()
-        user_id, post_text = row.split("|")
+        post_id, user_id, post_text = row.split("|")
 
-        post = Post(user_id=user_id,
+        post = Post(post_id=post_id,
+                    user_id=user_id,
                     post_text=post_text)
 
         # We need to add to the session or it won't ever be stored
         db.session.add(post)
+
+    # Once we're done, we should commit our work
+    db.session.commit()
+
+
+def load_hearts():
+    """Load posts from posts.txt into database."""
+
+    print("Hearts")
+
+    # Read posts.txt file and insert data
+    for row in open("seed_data/hearts.txt"):
+        row = row.rstrip()
+        heart_id, user_id, post_id, heart_type = row.split("|")
+
+        heart = Heart(heart_id=heart_id,
+                    user_id=user_id,
+                    post_id=post_id,
+                    heart_type=heart_type)
+
+        # We need to add to the session or it won't ever be stored
+        db.session.add(heart)
 
     # Once we're done, we should commit our work
     db.session.commit()
@@ -75,6 +98,30 @@ def set_val_user_id():
     db.session.execute(query, {'new_id': max_id + 1})
     db.session.commit()
 
+def set_val_post_id():
+    """Set value for the next user_id after seeding database"""
+
+    # Get the Max user_id in the database
+    result = db.session.query(func.max(Post.post_id)).one()
+    max_id = int(result[0])
+
+    # Set the value for the next user_id to be max_id + 1
+    query = "SELECT setval('posts_post_id_seq', :new_id)"
+    db.session.execute(query, {'new_id': max_id + 1})
+    db.session.commit()
+
+def set_val_heart_id():
+    """Set value for the next user_id after seeding database"""
+
+    # Get the Max user_id in the database
+    result = db.session.query(func.max(Heart.heart_id)).one()
+    max_id = int(result[0])
+
+    # Set the value for the next user_id to be max_id + 1
+    query = "SELECT setval('hearts_heart_id_seq', :new_id)"
+    db.session.execute(query, {'new_id': max_id + 1})
+    db.session.commit()
+
 
 if __name__ == "__main__":
     connect_to_db(app)
@@ -86,5 +133,7 @@ if __name__ == "__main__":
     # Import different types of data
     load_users()
     load_posts()
-    # load_ratings()
+    load_hearts()
     set_val_user_id()
+    set_val_post_id()
+    set_val_heart_id()

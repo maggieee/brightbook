@@ -1,0 +1,15 @@
+1|5|1|red_heart
+2|5|9|red_heart
+3|5|10|red_heart
+4|4|1|red_heart
+5|4|7|red_heart
+6|1|6|red_heart
+7|1|8|red_heart
+8|1|9|red_heart
+9|3|2|red_heart
+10|6|3|red_heart
+11|7|4|red_heart
+12|7|5|red_heart
+13|8|6|red_heart
+14|10|7|red_heart
+15|10|8|red_heart
