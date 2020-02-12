@@ -11,16 +11,22 @@ from server import app
 from datetime import datetime
 
 
+def kaboom():
+    """Clear out User, Post, and Heart tables"""
+
+    print("Kaboom")
+
+    Heart.query.delete()
+    Post.query.delete()
+    User.query.delete()
+
+
 def load_users():
     """Load users from u.user into database."""
 
     print("Users")
 
-    # Delete all rows in table, so if we need to run this a second time,
-    # we won't be trying to add duplicate users
-    User.query.delete()
-
-    # Read u.user file and insert data
+    # Read users.txt file and insert data
     for row in open("seed_data/users.txt"):
         row = row.rstrip()
         user_id, email, display_name = row.split("|")
@@ -32,6 +38,26 @@ def load_users():
 
         # We need to add to the session or it won't ever be stored
         db.session.add(user)
+
+    # Once we're done, we should commit our work
+    db.session.commit()
+
+
+def load_posts():
+    """Load posts from posts.txt into database."""
+
+    print("Posts")
+
+    # Read posts.txt file and insert data
+    for row in open("seed_data/posts.txt"):
+        row = row.rstrip()
+        user_id, post_text = row.split("|")
+
+        post = Post(user_id=user_id,
+                    post_text=post_text)
+
+        # We need to add to the session or it won't ever be stored
+        db.session.add(post)
 
     # Once we're done, we should commit our work
     db.session.commit()
@@ -56,8 +82,9 @@ if __name__ == "__main__":
     # In case tables haven't been created, create them
     db.create_all()
 
+    kaboom()
     # Import different types of data
     load_users()
-    # load_movies()
+    load_posts()
     # load_ratings()
     set_val_user_id()

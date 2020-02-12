@@ -55,12 +55,13 @@ class Post(db.Model):
 
         return f"<Post post_id={self.post_id} text={self.post_text[:30]}>"
 
+
 class Heart(db.Model):
     """Data model for a post."""
 
     __tablename__ = "hearts"
 
-    reaction_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+    heart_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     post_id = db.Column(db.Integer, db.ForeignKey('posts.post_id'), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'), nullable=False)
     heart_type = db.Column(db.String(50), nullable=False)

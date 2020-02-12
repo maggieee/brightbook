@@ -1,0 +1,10 @@
+5|I am just going to write some text for these fields.
+6|Typing is hard. Why am I writing so much?
+7|I made the repr thingy cut off at 30 characters
+8|So when we look at posts in the terminal they will only show that many characters
+9|But the limit in the database is 1000.
+10|How do you decide how long you want posts to be?
+1|I wonder why Twitter picked 180 characters (is that what it is??)
+2|Probably just something arbitrary...
+3|It seems like a lot of product decisions end up being...
+4|A little arbitrary. <3 :) 
