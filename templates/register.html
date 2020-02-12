@@ -1,0 +1,38 @@
+<!-- <form method="POST" action="" class="form">
+    {{ form.hidden_tag() }}
+    {% for field in form %}
+        <div class="field">
+            {% if field.errors %}
+            {% for error in field.errors %}
+                <div class="notification error">{{ error }}</div>
+            {% endfor %}
+            {% endif %}
+            {{ field(placeholder=field.label.text) }}
+        </div>
+    {% endfor %}
+</form> -->
+
+
+{% extends 'base.html' %}
+{% block content %}
+
+  <!-- <h2>Client_registration</h2>
+
+  <form action="register" method="POST">
+  E-mail <br>
+  <input type = "text" name="email">
+  Password <br>
+  <input type = "text" name="password">
+  <input type="submit" value="Register!"> -->
+
+<div class="formwrapper">
+    <h2 class="title">Register</h2>
+    <form method="POST" action="register">
+        <div class="form-field">{{ form.display_name.label }} {{ form.display_name(size=20) }}</div>
+        <div class="form-field">{{ form.email.label }} {{ form.email) }}</div>
+        <div class="form-field">{{ form.body.label }} {{ form.body }}</div>
+        {{ form.submit }}
+    </form>
+</div>
+
+{% endblock %}

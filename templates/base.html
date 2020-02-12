@@ -1,0 +1,19 @@
+<!doctype html>
+<html>
+<head>
+  <title>BrightBook</title>
+    <ul class=flashes>
+    {% for message in get_flashed_messages() %}
+      <li>{{ message }}</li>
+    {% endfor %}
+    </ul>
+</head>
+
+<body>
+  BrightBook
+  <hr>
+
+  {% block content %} put your content here {% endblock %}
+
+</body>
+</html>
