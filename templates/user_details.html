@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block content %}
+
+  <h2>Hi {{ session['email'] }}!</h2>
+
+  <ul>
+  {{ user.display_name }}
+      <li>
+        {{ user.email }}
+      </li>
+      <li>
+        {{ user.posts }}
+      </li>
+
+      <ul>
+        {% for post in user.posts %}
+          <li>
+            <a href="/posts/{{ post.post_id }}">
+              {{ post.post_text }} <br>
+              {% for heart in post.hearts %}
+                {{ heart.heart_type }}
+              {% endfor %}
+            </a>
+          </li>
+        {% endfor %}
+      </ul>
+
+      <li>
+        {{ user.hearts }}
+      </li>
+  </ul>
+
+{% endblock %}

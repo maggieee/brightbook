@@ -6,7 +6,7 @@ from forms import RegisterForm, LoginForm
 
 
 import models
-from models import User, db, connect_to_db
+from models import User, Post, Heart, db, connect_to_db
 
 app = Flask(__name__)
 #session(app)
@@ -22,8 +22,35 @@ app.jinja_env.undefined = StrictUndefined
 
 @app.route('/')
 def index():
-    return 'Hi'
+    """Show the homepage"""
 
+    return render_template("index.html")
+
+@app.route('/brightbookers')
+def show_brightbookers():
+    """List the brightbookers"""
+
+    return redirect('/users')
+
+
+@app.route('/brightnews')
+def show_brightnews():
+    """Show the newsfeed"""
+
+    posts = Post.query.all()
+
+    hearts = Heart.query.all()
+
+    users = User.query.all()
+
+    if 'email' in session:
+
+        return render_template("brightnews.html", posts=posts, hearts=hearts, users=users)
+
+    else:
+        flash('Please log in to see the BrightNews feed.')
+
+        return redirect('/')
 
 @app.route('/login')
 def show_login():
@@ -61,6 +88,31 @@ def log_in_user():
                 return redirect('/login')
 
 
+@app.route("/logout", methods=['POST'])
+def log_out_user():
+    """Log the user out and remove them from the session."""
+
+    print(session)
+
+    session.clear()
+    print(session)
+
+    flash('Logout successful')
+
+    return redirect("/")
+
+
+@app.route("/profile")
+def show_my_profile(user_id):
+    """Show the logged-in user's profile."""
+
+
+    user = User.query.filter_by(email=session['email']).first_or_404()
+    user_id = user.user_id
+
+    render_template("/users/<user_id>")
+
+
 @app.route('/register')
 def show_registration_page():
     """Show the register page"""
@@ -91,6 +143,33 @@ def register_user():
         db.session.commit()
 
         return redirect("/")
+
+
+@app.route("/user_details")
+def show_user_details():
+    """Show user details."""
+
+    print(session)
+
+    return render_template("user_details.html")
+
+
+@app.route("/users")
+def user_list():
+    """Show list of users."""
+
+    users = User.query.all()
+    return render_template("brightbookers.html", users=users)
+
+
+@app.route("/users/<user_id>")
+def show_user_id_details(user_id):
+    """Show user details."""
+
+    user = User.query.filter_by(user_id=user_id).first_or_404()
+
+
+    return render_template("user_details.html", user=user)
 
 
 

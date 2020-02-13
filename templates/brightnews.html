@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block content %}
+
+  <h2>BrightNews</h2>
+
+  <ul>
+    {% for post in posts %}
+      <li>
+        <a href="/posts/{{ post.post_id }}">
+          {{ post.user_id }} {{ post.post_text }}
+        </a>
+      </li>
+    {% endfor %}
+  </ul>
+
+{% endblock %}
