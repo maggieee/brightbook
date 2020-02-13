@@ -13,22 +13,22 @@
 <body>
   BrightBook 
 
-  {% if 'email' not in session %}
+  {% if 'email' not in session: %}
 
-    <a href="/login">Log in</a>
+    <a href="/login">Sign In</a>
 
   {% endif %}
 
-  {# <button type = "submit" formaction = "logout"> Logout </button> #}
+    {# <button type = "submit" formaction = "logout"> Sign Out </button> #}
 
-<form action="logout" method="POST">
-    <!-- {% for message in get_flashed_messages() %} -->
-    {% if session != {} %}
+    <form action="logout" method="POST"> 
+      {% if 'email' in session: %}
       
         <input type="submit" value="Log out!">
-    {% endif %}
-    <!-- {% endfor %} -->
-</form>
+      {% endif %}
+
+    </form>
+
 
   <hr>
 

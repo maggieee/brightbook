@@ -1,6 +1,8 @@
 {% extends 'base.html' %}
 {% block content %}
 
+{% if 'email' in session %}
+
   <h2>BrightBookers</h2>
 
   <ul>
@@ -13,5 +15,11 @@
       </li>
     {% endfor %}
   </ul>
+
+{% else %}
+
+  <p> Please log in to view BrightBookers. </p>
+
+{% endif %}
 
 {% endblock %}

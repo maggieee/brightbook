@@ -24,7 +24,21 @@ app.jinja_env.undefined = StrictUndefined
 def index():
     """Show the homepage"""
 
-    return render_template("index.html")
+    if 'email' in session:
+        print("****SESSION****")
+        print(session)
+
+        email = session['email']
+        user = User.query.filter_by(email=email).first_or_404()
+
+
+        # print("****USER****")
+        # print(user)
+
+        return render_template("logged_in_homepage.html", user=user)
+
+    else:
+        return render_template("index.html")
 
 @app.route('/brightbookers')
 def show_brightbookers():
@@ -87,6 +101,11 @@ def log_in_user():
 
                 return redirect('/login')
 
+        else:
+            flash('Invalid login. Please try again.')
+
+            return redirect('/login')
+
 
 @app.route("/logout", methods=['POST'])
 def log_out_user():
@@ -102,15 +121,14 @@ def log_out_user():
     return redirect("/")
 
 
-@app.route("/profile")
+@app.route("/profile/<user_id>")
 def show_my_profile(user_id):
     """Show the logged-in user's profile."""
-
 
     user = User.query.filter_by(email=session['email']).first_or_404()
     user_id = user.user_id
 
-    render_template("/users/<user_id>")
+    return render_template("/user_details.html", user=user)
 
 
 @app.route('/register')
@@ -158,8 +176,15 @@ def show_user_details():
 def user_list():
     """Show list of users."""
 
-    users = User.query.all()
-    return render_template("brightbookers.html", users=users)
+    if 'email' in session:
+        users = User.query.all()
+
+        return render_template("brightbookers.html", users=users)
+
+    else:
+        flash('Please log in to view BrightBookers.')
+
+        return redirect('/')
 
 
 @app.route("/users/<user_id>")

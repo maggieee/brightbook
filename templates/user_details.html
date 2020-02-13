@@ -3,31 +3,27 @@
 
   <h2>Hi {{ session['email'] }}!</h2>
 
-  <ul>
-  {{ user.display_name }}
-      <li>
-        {{ user.email }}
-      </li>
-      <li>
-        {{ user.posts }}
-      </li>
-
-      <ul>
-        {% for post in user.posts %}
-          <li>
+  
+  {{ user.display_name }} | {{ user.email }}
+      
+        {% if user.posts %}
+          {% for post in user.posts %}
+            <li>
             <a href="/posts/{{ post.post_id }}">
-              {{ post.post_text }} <br>
-              {% for heart in post.hearts %}
-                {{ heart.heart_type }}
-              {% endfor %}
-            </a>
-          </li>
-        {% endfor %}
-      </ul>
+              {{ post.post_text }} </a> <br>
+
+                {% if post.hearts %}
+                  {% for heart in post.hearts %}
+                    {{ heart.heart_type }}
+                  {% endfor %}
+                {% endif %}
+            </li>
+          {% endfor %}
+        {% endif %}
+      
 
       <li>
         {{ user.hearts }}
       </li>
-  </ul>
 
 {% endblock %}
