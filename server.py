@@ -177,22 +177,31 @@ def show_post_details(post_id):
         current_user=current_user)
 
 
-@app.route('/posts/heart', methods=["GET", "POST"])
-def add_heart():
+@app.route('/posts/<int:post_id>/heart', methods=["POST"])
+def add_heart(post_id):
     """Add a reaction to a post."""
 
-    print(post_id)
+    # print(post_id)
+
+    print("***PATH***")
+    print(request.path)
 
     post = Post.query.filter_by(post_id=post_id).first_or_404()
+    user_id = post.user_id
     user = User.query.filter_by(user_id=post.user_id).first_or_404()
 
     email = session['email']
     current_user = User.query.filter_by(email=email).first_or_404()
 
+    new_heart = Heart(post_id=post_id, user_id=current_user.user_id, heart_type="red_heart")
+
+    db.session.add(new_heart)
+    db.session.commit()
+
 
     flash("Post <3'd")
 
-    return redirect('/post_details.html', post=post, user=user)
+    return redirect(f"/posts/{post_id}")
 
 @app.route("/profile/<user_id>")
 def show_my_profile(user_id):

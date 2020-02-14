@@ -20,13 +20,13 @@
   {% endif %}
 
   {% if 'email' in session: %} 
-    <a href="/users">Browse BrightBookers</a>
+    <a href="/users">Browse users</a>
     | <a href="/brightnews">Read all BrightNews</a>
     | <a href="/create_post">Write new post</a>
 
   {% endif %}
 
-    <form action="logout" method="POST"> 
+    <form action="/logout" method="POST"> 
       {% if 'email' in session: %}
       
         <input type="submit" value="Log out!">

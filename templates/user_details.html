@@ -1,6 +1,17 @@
 {% extends 'base.html' %}
 {% block content %}
 
+
+<!-- This is how the page looks if it's the current user's profile: -->
+
+{% if user.email == session['email'] %}
+
+fjdfskjkfjdskf
+
+{% endif %}
+
+<!-- Code for non-self user page follows -->
+
   <h2>About {{ user.display_name }}:</h2>
 
   <ul>

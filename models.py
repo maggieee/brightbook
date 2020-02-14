@@ -36,6 +36,21 @@ class User(UserMixin, db.Model):
     def check_password(self, password):
         return check_password_hash(self.password_hash, password)
 
+    def heart_post(self, post, heart_type):
+        if not self.has_hearted_post(post):
+            heart = Heart(user_id=self.id, post_id=post.id, heart_type=heart_type)
+            db.session.add(heart)
+            db.session.commit()
+
+    def unheart_post(self, post):
+        if self.has_hearted_post(post):
+            Heart.query.filter_by(user_id=self.id, post_id=post.id).delete()
+
+    def has_hearted_post(self, post):
+        return Heart.query.filter(
+            Heart.user_id == self.id,
+            Heart.post_id == post.id).count() > 0
+
 
 class Post(db.Model):
     """Data model for a post."""

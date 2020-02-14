@@ -8,9 +8,14 @@
 
   <p> {{ post.posted_at }} </p>
 
-     <form action="heart" method="POST"> 
+  {% if user.user_id not in post.hearts %}
+
+     <form action="/posts/{{ post.post_id }}/heart" method="POST"> 
       
         <input type="submit" value="Heart!" id="heart">
+      </form>
+
+  {% endif %}
 
 
       {% if post.hearts %}
