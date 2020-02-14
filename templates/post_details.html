@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block content %}
+
+  <p>Post {{ post.post_id }} by {{ user.display_name }}:</p>
+        
+    
+  <h2>  {{ post.post_text }} </h2>
+
+  <p> {{ post.posted_at }} </p>
+
+     <form action="heart" method="POST"> 
+      
+        <input type="submit" value="Heart!" id="heart">
+
+
+      {% if post.hearts %}
+        <ul>
+          {% for heart in post.hearts %}
+            <li> {{ heart.heart_type }} by User {{ heart.user_id }} </li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+
+<script src="/static/ajax.js"></script>
+
+{% endblock %}

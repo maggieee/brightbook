@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="formwrapper">
+    <h2 class="title">Write New Post</h2>
+    <form method="POST" action="create_post">
+        <div class="form-field">{{ form.post_text.label }} {{ form.post_text(size=20) }}
+          {% if form.post_text.errors %}
+            <ul class="errors">
+                {% for error in form.email.errors %}
+                  <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+          {% endif %}
+        </div>
+        <p><input type=submit value=Post></p>
+    </form>
+</div>
+
+{% endblock %}

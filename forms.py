@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm 
-from wtforms import StringField, PasswordField
+from wtforms import StringField, PasswordField, validators
 from wtforms.validators import (DataRequired, Regexp, ValidationError, Email,
                                 Length, EqualTo)
 
@@ -17,6 +17,13 @@ def email_exists(form, email):
 
     if User.query.filter_by(email=email).first() != None:
         raise ValidationError('User with that Email already exists')
+
+
+class CreatePostForm(FlaskForm):
+
+    post_text = StringField('Post text', [validators.DataRequired(), 
+        validators.Length(min=2, max=1000, 
+        message='Messages must be between 2 and 1000 characters.')])
 
 class LoginForm(FlaskForm):
 

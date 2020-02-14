@@ -11,15 +11,20 @@
 </head>
 
 <body>
-  BrightBook 
+  BrightBook | <a href="/">Home</a> | 
 
   {% if 'email' not in session: %}
 
-    <a href="/login">Sign In</a>
+    <a href="/login">Log In</a>
 
   {% endif %}
 
-    {# <button type = "submit" formaction = "logout"> Sign Out </button> #}
+  {% if 'email' in session: %} 
+    <a href="/users">Browse BrightBookers</a>
+    | <a href="/brightnews">Read all BrightNews</a>
+    | <a href="/create_post">Write new post</a>
+
+  {% endif %}
 
     <form action="logout" method="POST"> 
       {% if 'email' in session: %}

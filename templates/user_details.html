@@ -1,29 +1,53 @@
 {% extends 'base.html' %}
 {% block content %}
 
-  <h2>Hi {{ session['email'] }}!</h2>
+  <h2>About {{ user.display_name }}:</h2>
 
+  <ul>
+
+  Email: 
+  <li> {{ user.email }} </li>
+      
+  </ul>
   
-  {{ user.display_name }} | {{ user.email }}
-      
-        {% if user.posts %}
-          {% for post in user.posts %}
-            <li>
-            <a href="/posts/{{ post.post_id }}">
-              {{ post.post_text }} </a> <br>
+  {% if user.posts %}
 
-                {% if post.hearts %}
-                  {% for heart in post.hearts %}
-                    {{ heart.heart_type }}
-                  {% endfor %}
-                {% endif %}
-            </li>
-          {% endfor %}
-        {% endif %}
-      
-
+  <br>
+  <ul>
+  Posts:
+    {% for post in user.posts %}
       <li>
-        {{ user.hearts }}
-      </li>
+      <a href="/posts/{{ post.post_id }}">
+        {{ post.post_text }} </a> <br>
 
+          <!-- {% if post.hearts %}
+          
+            {% for heart in post.hearts %}
+              {{ heart.heart_type }}
+            {% endfor %}
+
+          {% endif %} -->
+
+      </li>
+    {% endfor %}
+
+  </ul>
+  {% endif %}
+
+    <br>
+      
+  <ul>
+    {% if user.hearts %}
+      <3'd posts:
+  
+        {% for heart in user.hearts %}
+            <li>
+              <a href="/posts/{{ heart.post_id }}">{{ heart.post_id }} </a> <br>
+            </li>
+
+        {% endfor %}
+
+      </li>
+    {%endif %}
+  </ul>
 {% endblock %}

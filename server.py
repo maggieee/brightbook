@@ -2,7 +2,7 @@ from jinja2 import StrictUndefined
 from flask import (Flask, render_template, flash, redirect, url_for, request, 
     session)
 from flask_debugtoolbar import DebugToolbarExtension
-from forms import RegisterForm, LoginForm
+from forms import RegisterForm, LoginForm, CreatePostForm
 
 
 import models
@@ -66,6 +66,37 @@ def show_brightnews():
 
         return redirect('/')
 
+@app.route('/create_post')
+def show_create_post_page():
+    """Show the register page"""
+
+    form = CreatePostForm()
+    # if form.validate_on_submit():
+    #     return redirect(url_for('success'))
+
+    return render_template("create_post.html", form=form)
+
+@app.route('/create_post', methods=["POST"])
+def create_post():
+    """Create a new post with a user and post text."""
+
+    email = session['email']
+    user = User.query.filter_by(email=email).first_or_404()
+
+    post_text = request.form.get('post_text').strip()
+
+    new_post = Post(user_id=user.user_id, post_text=post_text)
+
+    db.session.add(new_post)
+    db.session.commit()
+
+    email = session['email']
+    current_user = User.query.filter_by(email=email).first_or_404()
+
+    return render_template("post_details.html", post=new_post, user=user,
+        current_user=current_user)
+
+
 @app.route('/login')
 def show_login():
     """Show the login page/module"""
@@ -107,7 +138,7 @@ def log_in_user():
             return redirect('/login')
 
 
-@app.route("/logout", methods=['POST'])
+@app.route("/logout", methods=['GET', 'POST'])
 def log_out_user():
     """Log the user out and remove them from the session."""
 
@@ -120,6 +151,48 @@ def log_out_user():
 
     return redirect("/")
 
+
+@app.route("/posts/logout", methods=["GET", "POST"])
+def redirect_from_posts_to_logout():
+    """Redirect the user to the logout flow."""
+
+    return redirect("/logout")
+
+
+@app.route("/posts/<post_id>")
+def show_post_details(post_id):
+    """Show post details."""
+
+    post = Post.query.filter_by(post_id=post_id).first_or_404()
+
+    user_id = post.user_id
+
+    user = User.query.filter_by(user_id=user_id).first_or_404()
+
+    email = session['email']
+    current_user = User.query.filter_by(email=email).first_or_404()
+
+
+    return render_template("post_details.html", post=post, user=user, 
+        current_user=current_user)
+
+
+@app.route('/posts/heart', methods=["GET", "POST"])
+def add_heart():
+    """Add a reaction to a post."""
+
+    print(post_id)
+
+    post = Post.query.filter_by(post_id=post_id).first_or_404()
+    user = User.query.filter_by(user_id=post.user_id).first_or_404()
+
+    email = session['email']
+    current_user = User.query.filter_by(email=email).first_or_404()
+
+
+    flash("Post <3'd")
+
+    return redirect('/post_details.html', post=post, user=user)
 
 @app.route("/profile/<user_id>")
 def show_my_profile(user_id):
@@ -185,6 +258,13 @@ def user_list():
         flash('Please log in to view BrightBookers.')
 
         return redirect('/')
+
+
+@app.route("/users/logout", methods=["GET", "POST"])
+def redirect_to_logout():
+    """Redirect the user to the logout flow."""
+
+    return redirect("/logout")
 
 
 @app.route("/users/<user_id>")
