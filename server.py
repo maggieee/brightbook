@@ -8,6 +8,8 @@ from forms import RegisterForm, LoginForm, CreatePostForm
 import models
 from models import User, Post, Heart, db, connect_to_db
 
+from sqlalchemy import text
+
 app = Flask(__name__)
 #session(app)
 
@@ -51,7 +53,7 @@ def show_brightbookers():
 def show_brightnews():
     """Show the newsfeed"""
 
-    posts = Post.query.all()
+    posts = Post.query.order_by(text("posted_at desc"))
 
     hearts = Heart.query.all()
 
@@ -244,6 +246,8 @@ def register_user():
 
         return redirect("/")
 
+    # TODO: return an error in the event an email has already been taken.
+
 
 @app.route("/user_details")
 def show_user_details():
@@ -259,7 +263,7 @@ def user_list():
     """Show list of users."""
 
     if 'email' in session:
-        users = User.query.all()
+        users = User.query.order_by("display_name")
 
         return render_template("brightbookers.html", users=users)
 

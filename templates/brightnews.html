@@ -6,9 +6,14 @@
   <ul>
     {% for post in posts %}
       <li>
-        <a href="/posts/{{ post.post_id }}">
-          {{ post.user_id }} {{ post.post_text }}
-        </a>
+        {{ post.user_id }} <a href="/posts/{{ post.post_id }}">
+          {{ post.post_text }}</a>
+          <ul>
+          <li>
+            Posted at: {{ post.posted_at }}
+          </li>
+          </ul>
+        
       </li>
     {% endfor %}
   </ul>
