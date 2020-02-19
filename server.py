@@ -1,18 +1,20 @@
 from jinja2 import StrictUndefined
-from flask import (Flask, render_template, flash, redirect, url_for, request, 
-    session)
+from flask import (Flask, render_template, flash, redirect, url_for, request,
+                   session)
 from flask_debugtoolbar import DebugToolbarExtension
-from forms import RegisterForm, LoginForm, CreatePostForm
+from forms import RegisterForm, LoginForm, CreateMessageForm, CreatePostForm
 from sqlalchemy import text
 import bleach
 
 import models
-from models import User, Post, Heart, db, connect_to_db
+from models import User, Post, Heart, Message, db, connect_to_db
 
+from helpers import (add_and_commit_thing_to_database, create_new_post_from_summernote,
+                     get_current_user_from_session)
 
 
 app = Flask(__name__)
-#session(app)
+# session(app)
 
 # Required to use Flask sessions and the debug toolbar
 app.secret_key = "ABC"
@@ -34,7 +36,6 @@ def index():
         email = session['email']
         user = User.query.filter_by(email=email).first_or_404()
 
-
         # print("****USER****")
         # print(user)
 
@@ -42,6 +43,7 @@ def index():
 
     else:
         return render_template("index.html")
+
 
 @app.route('/brightbookers')
 def show_brightbookers():
@@ -69,6 +71,33 @@ def show_brightnews():
 
         return redirect('/')
 
+
+@app.route('/create_message')
+def show_create_message_page():
+    """Show the message page"""
+
+    form = CreateMessageForm()
+
+    return render_template("create_message.html", form=form)
+
+
+@app.route('/create_message', methods=["POST"])
+def create_message():
+    """Create a new message with a sender, recipient, subject, and contents."""
+
+    sender = get_current_user_from_session()
+    recipient = 2
+
+    new_message = Message(sender=sender.user_id, recipient=recipient, subject=request.form.get('subject'),
+                          contents=request.form.get('editordata'))
+
+    add_and_commit_thing_to_database(new_message)
+
+    flash(f"Message sent to {recipient}!")
+
+    return redirect("/profile/<user_id>")
+
+
 @app.route('/create_post')
 def show_create_post_page():
     """Show the register page"""
@@ -77,26 +106,17 @@ def show_create_post_page():
 
     return render_template("create_post.html", form=form)
 
+
 @app.route('/create_post', methods=["POST"])
 def create_post():
     """Create a new post with a user and post text."""
 
-    email = session['email']
-    user = User.query.filter_by(email=email).first_or_404()
-    ### FIX ME: future sprint - vulnerabiity issues ###
-    # cleaned_post = bleach.clean(request.form.get('editordata'), 
-    #     tags=bleach.sanitizer.ALLOWED_TAGS + ['div', 'br', 'span', 'p', 'h1', 
-    #     'h2', 'h3', 'h4', 'h5', 'h6', 'img', 'u'])
-    new_post = Post(user_id=user.user_id, post_text=request.form.get('editordata'))
+    user = get_current_user_from_session()
+    new_post = create_new_post_from_summernote(user)
+    add_and_commit_thing_to_database(new_post)
 
-    db.session.add(new_post)
-    db.session.commit()
+    return render_template("post_details.html", post=new_post, user=user)
 
-    email = session['email']
-    current_user = User.query.filter_by(email=email).first_or_404()
-
-    return render_template("post_details.html", post=new_post, user=user,
-        current_user=current_user)
 
 @app.route('/login')
 def show_login():
@@ -115,7 +135,6 @@ def log_in_user():
 
         email = request.form.get('email')
         password = request.form.get('password')
-
 
         user = User.query.filter_by(email=email).all()
 
@@ -173,9 +192,8 @@ def show_post_details(post_id):
     email = session['email']
     current_user = User.query.filter_by(email=email).first_or_404()
 
-
-    return render_template("post_details.html", post=post, user=user, 
-        current_user=current_user)
+    return render_template("post_details.html", post=post, user=user,
+                           current_user=current_user)
 
 
 @app.route('/posts/<int:post_id>/heart', methods=["POST"])
@@ -194,15 +212,16 @@ def add_heart(post_id):
     email = session['email']
     current_user = User.query.filter_by(email=email).first_or_404()
 
-    new_heart = Heart(post_id=post_id, user_id=current_user.user_id, heart_type="red_heart")
+    new_heart = Heart(
+        post_id=post_id, user_id=current_user.user_id, heart_type="red_heart")
 
     db.session.add(new_heart)
     db.session.commit()
 
-
     flash("Post <3'd")
 
     return redirect(f"/posts/{post_id}")
+
 
 @app.route("/profile/<user_id>")
 def show_my_profile(user_id):
@@ -226,7 +245,6 @@ def show_registration_page():
 
 
 @app.route('/register', methods=["POST"])
-
 def register_user():
     """Register a new user with email, display name, and password."""
 
@@ -285,9 +303,7 @@ def show_user_id_details(user_id):
 
     user = User.query.filter_by(user_id=user_id).first_or_404()
 
-
     return render_template("user_details.html", user=user)
-
 
 
 if __name__ == "__main__":
@@ -295,7 +311,7 @@ if __name__ == "__main__":
     # point that we invoke the DebugToolbarExtension
     connect_to_db(app)
 
-     # Use the DebugToolbar
+    # Use the DebugToolbar
     DebugToolbarExtension(app)
 
     app.run(host="0.0.0.0", debug=True)

@@ -18,7 +18,8 @@ class User(UserMixin, db.Model):
     display_name = db.Column(db.String(64), nullable=False, unique=True)
     profile_photo = db.Column(db.String(100), nullable=True)
     about_me = db.Column(db.Text, nullable=True)
-    joined_at = db.Column(db.DateTime, nullable=False, default=datetime.datetime.now)
+    joined_at = db.Column(db.DateTime, nullable=False,
+                          default=datetime.datetime.now)
     is_admin = db.Column(db.Boolean, nullable=False, default=False)
 
     posts = db.relationship('Post')
@@ -28,7 +29,6 @@ class User(UserMixin, db.Model):
         """Provide helpful representation when printed."""
 
         return f"<User user_id={self.user_id} name={self.display_name}>"
-
 
     def set_password(self, password):
         self.password_hash = generate_password_hash(password)
@@ -60,8 +60,10 @@ class Post(db.Model):
     __tablename__ = "posts"
 
     post_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'), nullable=False)
-    posted_at = db.Column(db.DateTime, nullable=False, default=datetime.datetime.now)
+    user_id = db.Column(db.Integer, db.ForeignKey(
+        'users.user_id'), nullable=False)
+    posted_at = db.Column(db.DateTime, nullable=False,
+                          default=datetime.datetime.now)
     post_text = db.Column(db.Text, nullable=False)
 
     users = db.relationship('User')
@@ -79,10 +81,13 @@ class Heart(db.Model):
     __tablename__ = "hearts"
 
     heart_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
-    post_id = db.Column(db.Integer, db.ForeignKey('posts.post_id'), nullable=False)
-    user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'), nullable=False)
+    post_id = db.Column(db.Integer, db.ForeignKey(
+        'posts.post_id'), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey(
+        'users.user_id'), nullable=False)
     heart_type = db.Column(db.String(50), nullable=False)
-    hearted_at = db.Column(db.DateTime, nullable=False, default=datetime.datetime.now)
+    hearted_at = db.Column(db.DateTime, nullable=False,
+                           default=datetime.datetime.now)
 
     posts = db.relationship('Post')
     users = db.relationship('User')
@@ -92,8 +97,31 @@ class Heart(db.Model):
 
         return f"<Heart post_id={self.post_id} user_id={self.user_id} type={self.heart_type}>"
 
+
+class Message(db.Model):
+    """Data model for a message."""
+
+    __tablename__ = "messages"
+
+    message_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+    sender = db.Column(db.Integer, db.ForeignKey(
+        'users.user_id'), nullable=False)
+    recipient = db.Column(db.Integer, nullable=False)
+    sent_at = db.Column(db.DateTime, nullable=False,
+                        default=datetime.datetime.now)
+    subject = db.Column(db.String(100), nullable=False)
+    contents = db.Column(db.Text, nullable=False)
+
+    senders = db.relationship('User')
+
+    def __repr__(self):
+        """Provide helpful representation when printed."""
+
+        return f"<Msg message_id={self.message_id} sender={self.sender} recipient={self.recipient}>"
+
 ##############################################################################
 # Helper functions
+
 
 def connect_to_db(app):
     """Connect the database to our Flask app."""

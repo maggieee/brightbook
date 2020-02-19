@@ -16,6 +16,8 @@
 {% if user.email != session['email'] %}
 
   <h2>About {{ user.display_name }}:</h2>
+  <h6><a href="/create_message">
+    Send {{ user.display_name }} a message </a> </h6>
 
 {% endif %}
 
@@ -36,7 +38,7 @@
     {% for post in user.posts %}
       <li>
       <a href="/posts/{{ post.post_id }}">
-        {{ post.post_text }} </a> <br>
+        {{ post.post_text | safe }} </a> <br>
 
           <!-- {% if post.hearts %}
           
