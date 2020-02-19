@@ -6,13 +6,20 @@
 
 {% if user.email == session['email'] %}
 
-fjdfskjkfjdskf
+<h2> My Profile: {{ user.display_name }} </h2>
+
 
 {% endif %}
 
 <!-- Code for non-self user page follows -->
 
+{% if user.email != session['email'] %}
+
   <h2>About {{ user.display_name }}:</h2>
+
+{% endif %}
+
+<!-- Code for everybody -->
 
   <ul>
 

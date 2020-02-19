@@ -4,7 +4,7 @@
   <p>Post {{ post.post_id }} by {{ user.display_name }}:</p>
         
     
-  <h2>  {{ post.post_text }} </h2>
+  {{ post.post_text | safe }}
 
   <p> {{ post.posted_at }} </p>
 

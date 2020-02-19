@@ -3,12 +3,13 @@ from flask import (Flask, render_template, flash, redirect, url_for, request,
     session)
 from flask_debugtoolbar import DebugToolbarExtension
 from forms import RegisterForm, LoginForm, CreatePostForm
-
+from sqlalchemy import text
+import bleach
 
 import models
 from models import User, Post, Heart, db, connect_to_db
 
-from sqlalchemy import text
+
 
 app = Flask(__name__)
 #session(app)
@@ -73,8 +74,6 @@ def show_create_post_page():
     """Show the register page"""
 
     form = CreatePostForm()
-    # if form.validate_on_submit():
-    #     return redirect(url_for('success'))
 
     return render_template("create_post.html", form=form)
 
@@ -84,10 +83,11 @@ def create_post():
 
     email = session['email']
     user = User.query.filter_by(email=email).first_or_404()
-
-    post_text = request.form.get('post_text').strip()
-
-    new_post = Post(user_id=user.user_id, post_text=post_text)
+    ### FIX ME: future sprint - vulnerabiity issues ###
+    # cleaned_post = bleach.clean(request.form.get('editordata'), 
+    #     tags=bleach.sanitizer.ALLOWED_TAGS + ['div', 'br', 'span', 'p', 'h1', 
+    #     'h2', 'h3', 'h4', 'h5', 'h6', 'img', 'u'])
+    new_post = Post(user_id=user.user_id, post_text=request.form.get('editordata'))
 
     db.session.add(new_post)
     db.session.commit()
@@ -97,7 +97,6 @@ def create_post():
 
     return render_template("post_details.html", post=new_post, user=user,
         current_user=current_user)
-
 
 @app.route('/login')
 def show_login():
