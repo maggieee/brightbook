@@ -6,11 +6,11 @@
   <ul>
     {% for post in posts %}
       <li>
-        {{ post.user_id }} <a href="/posts/{{ post.post_id }}">
-          {{ post.post_text }}</a>
+         <a href="/posts/{{ post.post_id }}">
+          {{ post.post_text | safe }}</a>
           <ul>
           <li>
-            Posted at: {{ post.posted_at }}
+            Posted at: {{ post.posted_at }} by User {{ post.user_id }}
           </li>
           </ul>
         

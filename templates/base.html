@@ -2,17 +2,27 @@
 <html>
 <link rel="stylesheet" type="text/css" href="static/styles.css" />
 <head>
+
+  <!-- include libraries(jQuery, bootstrap) -->
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+
+
   <title>BrightBook</title>
     <ul class=flashes>
     {% for message in get_flashed_messages() %}
       <li>{{ message }}</li>
     {% endfor %}
     </ul>
+
+
 </head>
 
 <body>
   
-  BrightBook | <a href="/">Home</a> | 
+  <brand><a href="/">BrightBook</a></brand> | 
 
   {% if 'email' not in session: %}
 
@@ -31,7 +41,8 @@
     <form action="/logout" method="POST"> 
       {% if 'email' in session: %}
       
-        <input type="submit" value="Log out!">
+        <!-- <input type="submit" value="Log out!"> -->
+        <a href="/logout">Log out!</a>
       {% endif %}
 
     </form>
