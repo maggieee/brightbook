@@ -62,7 +62,7 @@ class Post(db.Model):
     post_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'), nullable=False)
     posted_at = db.Column(db.DateTime, nullable=False, default=datetime.datetime.now)
-    post_text = db.Column(db.String(1000), nullable=False)
+    post_text = db.Column(db.Text, nullable=False)
 
     users = db.relationship('User')
     hearts = db.relationship('Heart')
