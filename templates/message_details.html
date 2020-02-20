@@ -8,4 +8,9 @@
 
 <p>{{ message.sent_at }}</p>
 
+<form action="/messages/{{ message.message_id }}/delete" method="DELETE"> 
+
+<input type="submit" value="Delete Message" id="delete">
+</form>
+
 {% endblock %}

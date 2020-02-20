@@ -24,6 +24,7 @@ class User(UserMixin, db.Model):
 
     posts = db.relationship('Post')
     hearts = db.relationship('Heart')
+    messages = db.relationship('Message')
 
     def __repr__(self):
         """Provide helpful representation when printed."""

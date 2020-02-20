@@ -26,6 +26,14 @@
         </ul>
       {% endif %}
 
+
+      {% if user.email == session['email'] %}
+      <form action="/posts/{{ post.post_id }}/delete" method="DELETE"> 
+      
+        <input type="submit" value="Delete Post" id="delete">
+      </form>
+      {% endif %}
+
 <script src="/static/ajax.js"></script>
 
 {% endblock %}

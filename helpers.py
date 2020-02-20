@@ -10,6 +10,14 @@ def add_and_commit_thing_to_database(thing):
     db.session.commit()
 
 
+def delete_db_object(db_model) -> None:
+    """Delete and commit the passed in sql alchemy model
+    """
+    db.session.delete(db_model)
+    db.session.commit()
+    return
+
+
 def create_new_post_from_summernote(user):
     """Create a new post using the summernote WYSIWYG editor"""
 

@@ -13,6 +13,10 @@
         Sent at: {{ message.sent_at }} <br>
         Subject: {{ message.subject }} <br>
         Body: <a href="/messages/{{ message.message_id }}">View message</a>
+        <form action="/messages/{{ message.message_id }}/delete" method="DELETE"> 
+
+            <input type="submit" value="Delete Message" id="delete">
+            </form>
     </li>
     <br>
     {% endfor %}

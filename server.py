@@ -10,7 +10,7 @@ import models
 from models import User, Post, Heart, Message, db, connect_to_db
 
 from helpers import (add_and_commit_thing_to_database, create_new_post_from_summernote,
-                     get_current_user_from_session)
+                     get_current_user_from_session, delete_db_object)
 
 
 app = Flask(__name__)
@@ -191,6 +191,23 @@ def show_message_details(message_id):
 
     return render_template("message_details.html", message=message)
 
+@app.route("/messages/<int:message_id>/delete", methods=["GET", "DELETE"])
+def delete_message(message_id):
+
+    message = Message.query.filter_by(message_id=message_id).first_or_404()
+
+    delete_db_object(message)
+
+    flash(f"Message {message.message_id} successfully deleted.")
+
+    return redirect("/messages")
+
+@app.route("/posts")
+def redirect_from_posts_to_brightnews():
+    """Redirect the user to BrightNews"""
+
+    return redirect("brightnews")
+
 
 @app.route("/posts/logout", methods=["GET", "POST"])
 def redirect_from_posts_to_logout():
@@ -216,6 +233,22 @@ def show_post_details(post_id):
                            current_user=current_user)
 
 
+@app.route("/posts/<int:post_id>/delete", methods=["GET", "DELETE"])
+def delete_post(post_id):
+
+    post = Post.query.filter_by(post_id=post_id).first_or_404()
+
+    if post.hearts:
+        for heart in post.hearts:
+            delete_db_object(heart)
+
+    delete_db_object(post)
+
+    flash(f"Post {post.post_id} successfully deleted.")
+
+    return redirect('/')
+
+
 @app.route('/posts/<int:post_id>/heart', methods=["POST"])
 def add_heart(post_id):
     """Add a reaction to a post."""
@@ -233,7 +266,7 @@ def add_heart(post_id):
     current_user = User.query.filter_by(email=email).first_or_404()
 
     new_heart = Heart(
-        post_id=post_id, user_id=current_user.user_id, heart_type="red_heart")
+        post_id=post_id, user_id=current_user.user_id, heart_type=u"❤️")
 
     db.session.add(new_heart)
     db.session.commit()
