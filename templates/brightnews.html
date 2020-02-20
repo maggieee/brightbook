@@ -6,7 +6,7 @@
   <ul>
     {% for post in posts %}
       <li>
-        Posted at: {{ post.posted_at }} by <b>User {{ post.user_id }}</b> | <a href="/posts/{{ post.post_id }}">
+        Posted {{ post.posted_at | humanize }} by <b>User {{ post.user_id }}</b> | <a href="/posts/{{ post.post_id }}">
           Read full post</a>
             <br>
             <br>
