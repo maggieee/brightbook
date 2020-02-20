@@ -6,14 +6,16 @@
   <ul>
     {% for post in posts %}
       <li>
-         <a href="/posts/{{ post.post_id }}">
-          {{ post.post_text | safe }}</a>
+        Posted at: {{ post.posted_at }} by <b>User {{ post.user_id }}</b> | <a href="/posts/{{ post.post_id }}">
+          Read full post</a>
           <ul>
+            <br>
           <li>
-            Posted at: {{ post.posted_at }} by User {{ post.user_id }}
+            {{ post.post_text | safe }}
           </li>
+          __________________________________________________________________________
           </ul>
-        
+        <br>
       </li>
     {% endfor %}
   </ul>
