@@ -26,6 +26,14 @@
         </ul>
       {% endif %}
 
-<script src="/static/ajax.js"></script>
+
+      {% if user.email == session['email'] %}
+      <form action="/posts/{{ post.post_id }}/delete" method="DELETE"> 
+      
+        <input type="submit" value="Delete Post" id="delete">
+      </form>
+      {% endif %}
+
+      <a href="/brightnews">Return to BrightNews feed</a> 
 
 {% endblock %}

@@ -6,14 +6,32 @@
   <ul>
     {% for post in posts %}
       <li>
-         <a href="/posts/{{ post.post_id }}">
-          {{ post.post_text | safe }}</a>
-          <ul>
-          <li>
-            Posted at: {{ post.posted_at }} by User {{ post.user_id }}
-          </li>
-          </ul>
+        Posted at: {{ post.posted_at }} by <b>User {{ post.user_id }}</b> | <a href="/posts/{{ post.post_id }}">
+          Read full post</a>
+            <br>
+            <br>
+          
+            {{ post.post_text | safe }}
+            <br>
+            <br>
         
+        
+              {% if post.hearts %}
+                  {% for heart in post.hearts %}
+                    {{ heart.heart_type }} by User {{ heart.user_id }} 
+                    <br>
+                  {% endfor %}
+              {% endif %}
+
+              <form action="/posts/{{ post.post_id }}/heart" method="POST"> 
+              
+                <input type="submit" value="Heart!" id="heart">
+              </form>
+            
+        
+          
+          __________________________________________________________________________
+        <br>
       </li>
     {% endfor %}
   </ul>

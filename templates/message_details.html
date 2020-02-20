@@ -1,0 +1,16 @@
+{% extends 'base.html' %} 
+{% block content %} 
+
+<h5>Subject:</h5>
+    {{ message.subject }}
+<h5>Message:</h5> 
+    {{ message.contents | safe }}
+
+<p>{{ message.sent_at }}</p>
+
+<form action="/messages/{{ message.message_id }}/delete" method="DELETE"> 
+
+<input type="submit" value="Delete Message" id="delete">
+</form>
+
+{% endblock %}
