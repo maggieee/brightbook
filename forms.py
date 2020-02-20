@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, validators
+from wtforms import StringField, PasswordField, HiddenField, validators
 from wtforms.validators import (DataRequired, Regexp, ValidationError, Email,
                                 Length, EqualTo)
 
@@ -22,6 +22,7 @@ def email_exists(form, email):
 
 class CreateMessageForm(FlaskForm):
 
+    recipient = HiddenField('Recipient')
     subject = StringField('Subject')
     contents = StringField('Contents', [validators.DataRequired(),
                                         validators.Length(min=2, max=1000,

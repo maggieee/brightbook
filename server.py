@@ -72,13 +72,13 @@ def show_brightnews():
         return redirect('/')
 
 
-@app.route('/create_message')
-def show_create_message_page():
+@app.route('/create_message/<user_id>')
+def show_create_message_page(user_id):
     """Show the message page"""
 
     form = CreateMessageForm()
 
-    return render_template("create_message.html", form=form)
+    return render_template("create_message.html", form=form, recipient=user_id)
 
 
 @app.route('/create_message', methods=["POST"])
@@ -86,16 +86,17 @@ def create_message():
     """Create a new message with a sender, recipient, subject, and contents."""
 
     sender = get_current_user_from_session()
-    recipient = 2
+    recipient = request.form.get('recipient')
 
     new_message = Message(sender=sender.user_id, recipient=recipient, subject=request.form.get('subject'),
                           contents=request.form.get('editordata'))
 
     add_and_commit_thing_to_database(new_message)
 
-    flash(f"Message sent to {recipient}!")
+    flash(f"Message sent to User {recipient}!")
 
-    return redirect("/profile/<user_id>")
+    return redirect(f"/users/{recipient}")
+
 
 
 @app.route('/create_post')
@@ -172,6 +173,25 @@ def log_out_user():
     return redirect("/")
 
 
+@app.route("/messages")
+def view_messages():
+    """Show the current user's messages."""
+
+    user = get_current_user_from_session()
+    messages = Message.query.filter_by(recipient=user.user_id).order_by(text("sent_at desc"))
+
+    return render_template("my_messages.html", user=user, messages=messages)
+
+
+@app.route("/messages/<message_id>")
+def show_message_details(message_id):
+    """Show message details."""
+
+    message = Message.query.filter_by(message_id=message_id).first_or_404()
+
+    return render_template("message_details.html", message=message)
+
+
 @app.route("/posts/logout", methods=["GET", "POST"])
 def redirect_from_posts_to_logout():
     """Redirect the user to the logout flow."""
@@ -223,14 +243,14 @@ def add_heart(post_id):
     return redirect(f"/posts/{post_id}")
 
 
-@app.route("/profile/<user_id>")
-def show_my_profile(user_id):
-    """Show the logged-in user's profile."""
+# @app.route("/profile/<user_id>")
+# def show_my_profile(user_id):
+#     """Show the logged-in user's profile."""
 
-    user = User.query.filter_by(email=session['email']).first_or_404()
-    user_id = user.user_id
+#     user = User.query.filter_by(email=session['email']).first_or_404()
+#     user_id = user.user_id
 
-    return render_template("/user_details.html", user=user)
+#     return render_template("/user_details.html", user=user)
 
 
 @app.route('/register')
@@ -256,14 +276,21 @@ def register_user():
 
     new_user.set_password(password)
 
-    if len(User.query.filter_by(email=email).all()) == 0:
+    if len(User.query.filter_by(email=email).all()) == 0  and len(User.query.filter_by(display_name=display_name).all()) == 0:
 
         db.session.add(new_user)
         db.session.commit()
 
+        flash("Registration successful - please log in.")
+
         return redirect("/")
 
-    # TODO: return an error in the event an email has already been taken.
+    else:
+
+        flash("Email or display name has already been taken. Please try again.")
+
+        return redirect("/")
+
 
 
 @app.route("/user_details")

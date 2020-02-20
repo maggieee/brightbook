@@ -8,6 +8,7 @@
 
 <h2> My Profile: {{ user.display_name }} </h2>
 
+<h5> <a href="/messages">View my messages</a></h5>
 
 {% endif %}
 
@@ -16,7 +17,7 @@
 {% if user.email != session['email'] %}
 
   <h2>About {{ user.display_name }}:</h2>
-  <h6><a href="/create_message">
+  <h6><a href="/create_message/{{ user.user_id }}">
     Send {{ user.display_name }} a message </a> </h6>
 
 {% endif %}

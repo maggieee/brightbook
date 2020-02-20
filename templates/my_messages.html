@@ -1,0 +1,36 @@
+{% extends 'base.html' %} {% block content %}
+
+<!-- This is how the page looks if it's the current user's profile: -->
+
+{% if user.email == session['email'] %}
+
+<h2>My Messages</h2>
+
+    {% if messages %}
+    <ul>
+    {% for message in messages %}
+    <li>
+        Sent at: {{ message.sent_at }} <br>
+        Subject: {{ message.subject }} <br>
+        Body: <a href="/messages/{{ message.message_id }}">View message</a>
+    </li>
+    <br>
+    {% endfor %}
+    </ul>
+
+    {% endif %} 
+
+    {% if not messages %} 
+
+    You don't have any messages. 
+
+    {% endif %} 
+
+{% endif %}
+
+<!-- Code for non-self user page follows -->
+
+{% if user.email != session['email'] %}
+
+<p>Please log in to see your messages.</p>
+> {% endif %} {% endblock %}
