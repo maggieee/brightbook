@@ -1,26 +1,16 @@
 {% extends 'base.html' %}
 {% block content %}
 
-
-<!-- This is how the page looks if it's the current user's profile: -->
-
-{% if user.email == session['email'] %}
-
-<h2> My Profile: {{ user.display_name }} </h2>
-
-<h5> <a href="/messages">View my messages</a></h5>
-
-{% endif %}
-
 <!-- Code for non-self user page follows -->
 
-{% if user.email != session['email'] %}
+
 
   <h2>About {{ user.display_name }}:</h2>
   <h6><a href="/create_message/{{ user.user_id }}">
+    <td><img src="{{ user.avatar(128) }}"></td>
     Send {{ user.display_name }} a message </a> </h6>
 
-{% endif %}
+
 
 <!-- Code for everybody -->
 
@@ -40,6 +30,9 @@
       <li>
       <a href="/posts/{{ post.post_id }}">
         {{ post.post_text | safe }} </a> <br>
+        Posted {{ post.posted_at | humanize }}
+        <br>
+        <br>
 
           <!-- {% if post.hearts %}
           

@@ -364,8 +364,12 @@ def show_user_id_details(user_id):
 
     user = User.query.filter_by(user_id=user_id).first_or_404()
 
+    if session['email'] == user.email:
+        return render_template("my_profile.html", user=user)
+
     return render_template("user_details.html", user=user)
 
+### Jinja filters below ####
 
 @app.template_filter()
 def datetimeformat(value, format='%H:%M / %d-%m-%Y'):

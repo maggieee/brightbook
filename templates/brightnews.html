@@ -1,12 +1,12 @@
 {% extends 'base.html' %}
 {% block content %}
 
-  <h2>BrightNews</h2>
+  <h2>Newsfeed</h2>
 
   <ul>
     {% for post in posts %}
       <li>
-        Posted {{ post.posted_at | humanize }} by <b>User {{ post.user_id }}</b> | <a href="/posts/{{ post.post_id }}">
+        Posted {{ post.posted_at | humanize }} by <a href="/users/{{ post.user_id }}"><b>User {{ post.user_id }}</b></a> | <a href="/posts/{{ post.post_id }}">
           Read full post</a>
             <br>
             <br>
