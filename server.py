@@ -2,16 +2,16 @@ from jinja2 import StrictUndefined
 from flask import (Flask, render_template, flash, redirect, url_for, request,
                    session)
 from flask_debugtoolbar import DebugToolbarExtension
-from forms import RegisterForm, LoginForm, CreateMessageForm, CreatePostForm
+from forms import RegisterForm, LoginForm, CreateMessageForm, CreatePostForm, CreateHiringPostForm
 from sqlalchemy import text
 import bleach
 from datetime import datetime
 
 import models
-from models import User, Post, Heart, Message, db, connect_to_db
+from models import User, Post, Heart, HiringPost, Message, db, connect_to_db
 
 from helpers import (add_and_commit_thing_to_database, create_new_post_from_summernote,
-                     get_current_user_from_session, delete_db_object)
+                     create_new_hiring_post_from_summernote, get_current_user_from_session, delete_db_object)
 
 
 app = Flask(__name__)
@@ -73,6 +73,24 @@ def show_brightnews():
         return redirect('/')
 
 
+@app.route('/companies')
+def show_companies():
+    """Show the hiring post feed"""
+
+    hiring_posts = HiringPost.query.order_by(text("posted_at desc"))
+
+    users = User.query.all()
+
+    if 'email' in session:
+
+        return render_template("companies.html", hiring_posts=hiring_posts, users=users)
+
+    else:
+        flash('Please log in to see the hiring feed.')
+
+        return redirect('/')
+
+
 @app.route('/create_message/<user_id>')
 def show_create_message_page(user_id):
     """Show the message page"""
@@ -98,7 +116,24 @@ def create_message():
 
     return redirect(f"/users/{recipient}")
 
+@app.route('/create_hiring_post')
+def show_create_hiring_post_page():
+    """Show the hiring post page"""
 
+    form = CreateHiringPostForm()
+
+    return render_template("create_hiring_post.html", form=form)
+
+
+@app.route('/create_hiring_post', methods=["POST"])
+def create_hiring_post():
+    """Create a new hiring post with a user and post text."""
+
+    user = get_current_user_from_session()
+    new_post = create_new_hiring_post_from_summernote(user)
+    add_and_commit_thing_to_database(new_post)
+
+    return render_template("hiring_post_details.html", hiring_post=new_post, user=user)
 
 @app.route('/create_post')
 def show_create_post_page():

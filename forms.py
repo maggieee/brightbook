@@ -28,6 +28,12 @@ class CreateMessageForm(FlaskForm):
                                         validators.Length(min=2, max=1000,
                                                           message='Messages must be between 2 and 1000 characters.')])
 
+class CreateHiringPostForm(FlaskForm):
+
+    post_text = StringField('Post text', [validators.DataRequired(),
+                                          validators.Length(min=2, max=1000,
+                                                            message='Messages must be between 2 and 1000 characters.')])
+
 
 class CreatePostForm(FlaskForm):
 

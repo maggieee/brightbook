@@ -21,7 +21,7 @@ class User(UserMixin, db.Model):
     about_me = db.Column(db.Text, nullable=True)
     joined_at = db.Column(db.DateTime, nullable=False,
                           default=datetime.datetime.now)
-    is_admin = db.Column(db.Boolean, nullable=False, default=False)
+    user_type = db.Column(db.String(64), nullable=False, default=False)
 
     posts = db.relationship('Post')
     hearts = db.relationship('Heart')
@@ -124,6 +124,26 @@ class Message(db.Model):
         """Provide helpful representation when printed."""
 
         return f"<Msg message_id={self.message_id} sender={self.sender} recipient={self.recipient}>"
+
+
+class HiringPost(db.Model):
+    """Data model for a post."""
+
+    __tablename__ = "hiring_posts"
+
+    hiring_post_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey(
+        'users.user_id'), nullable=False)
+    posted_at = db.Column(db.DateTime, nullable=False,
+                          default=datetime.datetime.now)
+    post_text = db.Column(db.Text, nullable=False)
+
+    users = db.relationship('User')
+
+    def __repr__(self):
+        """Provide helpful representation when printed."""
+
+        return f"<HiringPost hiring_post_id={self.hiring_post_id} text={self.post_text[:30]}>"
 
 ##############################################################################
 # Helper functions
