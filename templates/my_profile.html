@@ -3,53 +3,60 @@
 
 
 
-<h2> {{ user.display_name }} (me!)</h2>
+<h2> {{ user.display_name }} (me)</h2>
 
-<h5> <a href="/messages">View my messages</a></h5>
+<h5> <td><img src="{{ user.avatar(128) }}"></td>
+    <a href="/messages">View my messages</a></h5>
 
- 
-HI HI HI HI
 
   <ul>
 
-  Email: 
-  <li> {{ user.email }} </li>
-      
+    
+
+  <h4>Contact Info:</h4>
+  <ul>
+  <li>{{ user.email }} </li>
+</ul>
+
   </ul>
-  
   {% if user.posts %}
 
   <br>
   <ul>
-  Posts:
+  <h4>Posts:</h4>
+  <ul>
     {% for post in user.posts %}
       <li>
-      <a href="/posts/{{ post.post_id }}">
-        {{ post.post_text | safe }} </a> <br>
-        Posted {{ post.posted_at | humanize }}
-        <br>
-        <br>
-
-          <!-- {% if post.hearts %}
+        Posted {{ post.posted_at | humanize }} by <b>User {{ post.user_id }}</b> | <a href="/posts/{{ post.post_id }}">
+          Read full post</a>
+            <br>
+            <br>
           
-            {% for heart in post.hearts %}
-              {{ heart.heart_type }}
-            {% endfor %}
-
-          {% endif %} -->
-
+            {{ post.post_text | safe }}
+            <br>
+        
+        
+              {% if post.hearts %}
+                  {% for heart in post.hearts %}
+                    {{ heart.heart_type }} by User {{ heart.user_id }} 
+                    <br>
+                  {% endfor %}
+              {% endif %}
+              __________________________________________________________________________
       </li>
     {% endfor %}
+    
 
   </ul>
   {% endif %}
 
     <br>
       
-  <ul>
-    {% if user.hearts %}
-      <3'd posts:
   
+    {% if user.hearts %}
+      <h4> Favorited posts:</h4>
+  
+  <ul>
         {% for heart in user.hearts %}
             <li>
               <a href="/posts/{{ heart.post_id }}">{{ heart.post_id }} </a> <br>

@@ -1,4 +1,5 @@
 import datetime
+import hashlib
 
 from flask_login import UserMixin
 from flask_sqlalchemy import SQLAlchemy
@@ -30,6 +31,10 @@ class User(UserMixin, db.Model):
         """Provide helpful representation when printed."""
 
         return f"<User user_id={self.user_id} name={self.display_name}>"
+
+    def avatar(self, size):
+        """Get an avatar for the user from Gravatar"""
+        return 'http://www.gravatar.com/avatar/%s?d=mm&s=%d' % (hashlib.md5(self.email.encode('utf-8')).hexdigest(), size)
 
     def set_password(self, password):
         self.password_hash = generate_password_hash(password)
