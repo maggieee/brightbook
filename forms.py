@@ -1,5 +1,6 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, HiddenField, validators
+from wtforms import (StringField, PasswordField, HiddenField, BooleanField, 
+                    SubmitField, validators)
 from wtforms.validators import (DataRequired, Regexp, ValidationError, Email,
                                 Length, EqualTo)
 
@@ -18,6 +19,14 @@ def email_exists(form, email):
 
     if User.query.filter_by(email=email).first() != None:
         raise ValidationError('User with that Email already exists')
+
+
+class CreateCompanyForm(FlaskForm):
+
+    company_name = StringField('Company Name')
+    hired_hackbrighters = BooleanField('Has hired a Hackbrighter?')
+    hired_bootcamp_grads = BooleanField('Has hired a bootcamp grad?')
+    company_link = StringField('URL')
 
 
 class CreateMessageForm(FlaskForm):

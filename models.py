@@ -145,6 +145,21 @@ class HiringPost(db.Model):
 
         return f"<HiringPost hiring_post_id={self.hiring_post_id} text={self.post_text[:30]}>"
 
+
+class Company(db.Model):
+    """Data model for a company."""
+
+    __tablename__ = "companies"
+
+    company_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+    company_name = db.Column(db.String(100), nullable=False, unique=True)
+    hired_hackbrighters = db.Column(db.Boolean, nullable=False)
+    hired_bootcamp_grads = db.Column(db.Boolean, nullable=False)
+    company_link = db.Column(db.String(100), nullable=True)
+    about_company = db.Column(db.Text, nullable=True)
+    joined_at = db.Column(db.DateTime, nullable=False,
+                          default=datetime.datetime.now)
+
 ##############################################################################
 # Helper functions
 

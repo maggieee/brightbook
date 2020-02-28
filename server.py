@@ -2,13 +2,14 @@ from jinja2 import StrictUndefined
 from flask import (Flask, render_template, flash, redirect, url_for, request,
                    session)
 from flask_debugtoolbar import DebugToolbarExtension
-from forms import RegisterForm, LoginForm, CreateMessageForm, CreatePostForm, CreateHiringPostForm
+from forms import (RegisterForm, LoginForm, CreateCompanyForm, CreateMessageForm, CreatePostForm, 
+                    CreateHiringPostForm)
 from sqlalchemy import text
 import bleach
 from datetime import datetime
 
 import models
-from models import User, Post, Heart, HiringPost, Message, db, connect_to_db
+from models import User, Post, Heart, HiringPost, Message, Company, db, connect_to_db
 
 from helpers import (add_and_commit_thing_to_database, create_new_post_from_summernote,
                      create_new_hiring_post_from_summernote, get_current_user_from_session, delete_db_object)
@@ -73,22 +74,90 @@ def show_brightnews():
         return redirect('/')
 
 
-@app.route('/companies')
-def show_companies():
-    """Show the hiring post feed"""
-
-    hiring_posts = HiringPost.query.order_by(text("posted_at desc"))
-
-    users = User.query.all()
+@app.route("/companies")
+def company_list():
+    """Show list of companies."""
 
     if 'email' in session:
+        companies = Company.query.order_by("company_name")
 
-        return render_template("companies.html", hiring_posts=hiring_posts, users=users)
+        return render_template("company_directory.html", companies=companies)
 
     else:
-        flash('Please log in to see the hiring feed.')
+        flash('Please log in to view Companies.')
 
         return redirect('/')
+
+
+@app.route("/companies/<company_id>")
+def show_company_details(company_id):
+    """Show company details."""
+
+    company = Company.query.filter_by(company_id=company_id).first_or_404()
+
+    return render_template("company_details.html", company=company)
+
+
+@app.route("/company_status")
+def get_company_status():
+    """Get company status."""
+
+    company_name = request.args.get("company_name")
+
+    if Company.query.filter_by(company_name=company_name).first() is not None:
+        return f"{company_name} has been submitted and is under review."
+
+    if Company.query.filter_by(company_name=company_name).first() is None:
+        return f"{company_name} has either already been approved or is not yet submitted. Please check {'/companies'} and submit if it's not already there!"
+
+@app.route("/company_status_page")
+def show_company_status():
+    """Show company status."""
+
+    return render_template("company_status.html")
+
+@app.route('/create_company')
+def show_create_company_page():
+    """Show the add a company page"""
+
+    form = CreateCompanyForm()
+
+    return render_template("create_company.html", form=form)
+
+
+@app.route('/create_company', methods=["POST"])
+def create_company():
+    """Add a new company."""
+
+    company_name = request.form.get('company_name').strip()
+    hired_hackbrighters = True
+    
+    if request.form.get('hired_hackbrighters') == 'n':
+        hired_hackbrighters = False
+
+    hired_bootcamp_grads = True
+    
+    if request.form.get('hired_bootcamp_grads') == 'n':
+        hired_hackbrighters = False
+
+    company_link = request.form.get('company_link').strip()
+
+    new_company = Company(company_name=company_name, hired_hackbrighters=hired_hackbrighters, 
+        hired_bootcamp_grads=hired_bootcamp_grads, company_link=company_link)
+
+    if len(Company.query.filter_by(company_name=company_name).all()) == 0:
+
+        add_and_commit_thing_to_database(new_company)
+
+        flash("The company was successfully added!")
+
+        return redirect("/companies")
+
+    else:
+
+        flash("Company name has already been taken. Please try again.")
+
+        return redirect("/create_company")
 
 
 @app.route('/create_message/<user_id>')
@@ -153,6 +222,24 @@ def create_post():
     add_and_commit_thing_to_database(new_post)
 
     return render_template("post_details.html", post=new_post, user=user)
+
+
+@app.route('/hiring_posts')
+def show_companies():
+    """Show the hiring post feed"""
+
+    hiring_posts = HiringPost.query.order_by(text("posted_at desc"))
+
+    users = User.query.all()
+
+    if 'email' in session:
+
+        return render_template("hiring_posts.html", hiring_posts=hiring_posts, users=users)
+
+    else:
+        flash('Please log in to see the hiring feed.')
+
+        return redirect('/')
 
 
 @app.route('/login')

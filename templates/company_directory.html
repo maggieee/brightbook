@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block content %}
+
+{% if 'email' in session %}
+
+  <h2>Company Directory</h2>
+
+  <h4><a href="/create_company">Add a company for review</a></h4>
+  <br>
+  <h4>Companies to be reviewed</h4>
+
+  <form id="company-status">
+    Company Name: <input type="text" name="Company Name">
+  </form>
+
+  <div id="company-status">Status</div>
+
+  <ul>
+    {% for company in companies %}
+    <li>
+      <a href="/companies/{{ company.company_id }}">
+        {{ company.company_name }} </a>
+        {{ company.company_link }}
+      
+    </li>
+    {% endfor %}
+  </ul>
+
+  <iframe width="1020px" height="600px" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vQl7G3qqHzZsykC_5gYe3I3sAgXKf9LO1M0uB8GD3pQGrvQ-oA4N7xCeD5kudMtHaroA52R1Cnx71oe/pubhtml?gid=0&single=true"></iframe>
+  
+  {% else %}
+  
+  <p>Please log in to view Companies.</p>
+  
+  {% endif %} 
+
+  <script src="/static/js/company_status.js"></script>
+  
+  {% endblock %}

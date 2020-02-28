@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block content %}
+
+
+  <h2>About {{ company.company_name }}:</h2>
+ 
+  <ul>
+
+  {% if company.hired_bootcamp_grads %} 
+  <li> {{ company.company_name }} has hired bootcamp grads. </li>
+  {% endif %}
+
+  {% if company.hired_hackbrighters %} 
+  <li> {{ company.company_name }} has hired Hackbrighters. </li>
+  {% endif %}
+
+  <li> <a href="{{ company.company_link }}">{{ company.company_link }} </a> </li>
+
+  </ul>
+  
+  
+{% endblock %}

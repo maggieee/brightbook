@@ -1,4 +1,6 @@
-{% extends 'base.html' %} {% block content %} {% if 'email' in session %}
+{% extends 'base.html' %} {% block content %} 
+
+{% if 'email' in session %}
 
 <h2>Community Directory</h2>
 
@@ -17,4 +19,6 @@
 
 <p>Please log in to view BrightBookers.</p>
 
-{% endif %} {% endblock %}
+{% endif %} 
+
+{% endblock %}
