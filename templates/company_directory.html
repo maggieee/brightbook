@@ -9,18 +9,19 @@
   <br>
   <h4>Companies to be reviewed</h4>
 
-  <form id="company-status">
-    Company Name: <input type="text" name="Company Name">
+  <form id="update-company-status" action="/company_status">
+    Company Name: <input type="text" name="company_name" id="company-name">
+    <p><input type=submit value="Look up company"></p>
   </form>
 
-  <div id="company-status">Status</div>
+  <div id="company-status">Company Status</div>
 
   <ul>
     {% for company in companies %}
     <li>
       <a href="/companies/{{ company.company_id }}">
         {{ company.company_name }} </a>
-        {{ company.company_link }}
+        {{ company.job_listings_link }}
       
     </li>
     {% endfor %}

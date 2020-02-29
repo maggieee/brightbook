@@ -153,10 +153,10 @@ class Company(db.Model):
 
     company_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     company_name = db.Column(db.String(100), nullable=False, unique=True)
-    hired_hackbrighters = db.Column(db.Boolean, nullable=False)
     hired_bootcamp_grads = db.Column(db.Boolean, nullable=False)
-    company_link = db.Column(db.String(100), nullable=True)
-    about_company = db.Column(db.Text, nullable=True)
+    hired_hackbrighters = db.Column(db.Boolean, nullable=False)
+    job_listings_link = db.Column(db.String(300), nullable=True)
+    company_contact = db.Column(db.String(300), nullable=True)
     joined_at = db.Column(db.DateTime, nullable=False,
                           default=datetime.datetime.now)
 

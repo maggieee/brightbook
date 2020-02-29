@@ -1,9 +1,7 @@
 """Utility file to seed brightbook database/"""
 
 from sqlalchemy import func
-from models import User
-from models import Post
-from models import Heart
+from models import User, Post, Heart, Company
 
 from models import connect_to_db, db
 from server import app
@@ -65,7 +63,7 @@ def load_posts():
 
 
 def load_hearts():
-    """Load posts from posts.txt into database."""
+    """Load hearts from hearts.txt into database."""
 
     print("Hearts")
 
@@ -81,6 +79,38 @@ def load_hearts():
 
         # We need to add to the session or it won't ever be stored
         db.session.add(heart)
+
+    # Once we're done, we should commit our work
+    db.session.commit()
+
+def load_companies():
+    """Load companies from companies.txt into database."""
+
+    print("Companies")
+
+    # Read posts.txt file and insert data
+    for row in open("seed_data/companies.txt"):
+        row = row.rstrip()
+        company_id, company_name, hired_bootcamp_grads, hired_hackbrighters, job_listings_link = row.split("|")
+
+        if hired_bootcamp_grads == "y":
+            hired_bootcamp_grads = True
+        else:
+            hired_bootcamp_grads = False
+
+        if hired_hackbrighters == "y":
+            hired_hackbrighters = True
+        else:
+            hired_hackbrighters = False
+
+        company = Company(company_id=company_id,
+                    company_name=company_name,
+                    hired_bootcamp_grads=hired_bootcamp_grads,
+                    hired_hackbrighters=hired_hackbrighters,
+                    job_listings_link=job_listings_link)
+
+        # We need to add to the session or it won't ever be stored
+        db.session.add(company)
 
     # Once we're done, we should commit our work
     db.session.commit()
@@ -122,6 +152,17 @@ def set_val_heart_id():
     db.session.execute(query, {'new_id': max_id + 1})
     db.session.commit()
 
+def set_val_company_id():
+    """Set value for the next user_id after seeding database"""
+
+    # Get the Max user_id in the database
+    result = db.session.query(func.max(Company.company_id)).one()
+    max_id = int(result[0])
+
+    # Set the value for the next user_id to be max_id + 1
+    query = "SELECT setval('companies_company_id_seq', :new_id)"
+    db.session.execute(query, {'new_id': max_id + 1})
+    db.session.commit()
 
 if __name__ == "__main__":
     connect_to_db(app)
@@ -134,6 +175,8 @@ if __name__ == "__main__":
     load_users()
     load_posts()
     load_hearts()
+    load_companies()
     set_val_user_id()
     set_val_post_id()
     set_val_heart_id()
+    set_val_company_id()

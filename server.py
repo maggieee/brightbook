@@ -108,13 +108,8 @@ def get_company_status():
         return f"{company_name} has been submitted and is under review."
 
     if Company.query.filter_by(company_name=company_name).first() is None:
-        return f"{company_name} has either already been approved or is not yet submitted. Please check {'/companies'} and submit if it's not already there!"
+        return f"{company_name} has either already been approved or is not yet submitted. Please check reviewed listings below and submit if it's not already there!"
 
-@app.route("/company_status_page")
-def show_company_status():
-    """Show company status."""
-
-    return render_template("company_status.html")
 
 @app.route('/create_company')
 def show_create_company_page():
