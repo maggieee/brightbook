@@ -5,9 +5,9 @@
 
   <h4><a href="/create_post">Write new post</a> </h4>
 
-  <ul>
+  <ul style="list-style: none;">
     {% for post in posts %}
-      <li>
+      <li style="border-style:solid">
         Posted {{ post.posted_at | humanize }} by <a href="/users/{{ post.user_id }}"><b>User {{ post.user_id }}</b></a> | <a href="/posts/{{ post.post_id }}">
           Read full post</a>
             <br>

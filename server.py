@@ -1,6 +1,6 @@
 from jinja2 import StrictUndefined
 from flask import (Flask, render_template, flash, redirect, url_for, request,
-                   session)
+                   session, jsonify)
 from flask_debugtoolbar import DebugToolbarExtension
 from forms import (RegisterForm, LoginForm, CreateCompanyForm, CreateMessageForm, CreatePostForm, 
                     CreateHiringPostForm)
@@ -45,6 +45,31 @@ def index():
 
     else:
         return render_template("index.html")
+
+
+@app.route("/api/v1/companies")
+def company_list_api():
+    """Show JSON list of companies."""
+
+    if 'email' in session:
+        companies = Company.query.all()
+
+        comps = {}
+
+        for comp in companies:
+            comps[comp.company_name] = {'company_id': comp.company_id,
+                                            'hired_bootcamp_grads': comp.hired_bootcamp_grads,
+                                            'hired_hackbrighters': comp.hired_hackbrighters,
+                                            'job_listings_link': comp.job_listings_link,
+                                            'company_contact': comp.company_contact,
+                                            'joined_at': comp.joined_at}
+
+        return jsonify(comps)
+
+    else:
+        flash('Please log in to view Companies.')
+
+        return redirect('/')
 
 
 @app.route('/brightbookers')
