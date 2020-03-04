@@ -123,6 +123,26 @@ def show_company_details(company_id):
     return render_template("company_details.html", company=company)
 
 
+@app.route("/company_search")
+def company_search():
+    """Return search results for a company."""
+
+    company_name = request.args.get("company_name")
+
+    company = Company.query.filter_by(company_name=company_name).first()
+
+    comp = {}
+
+    comp[company.company_name] = {'company_id': company.company_id,
+                                            'hired_bootcamp_grads': company.hired_bootcamp_grads,
+                                            'hired_hackbrighters': company.hired_hackbrighters,
+                                            'job_listings_link': company.job_listings_link,
+                                            'company_contact': company.company_contact,
+                                            'joined_at': company.joined_at}
+
+    return jsonify(comp)
+
+
 @app.route("/company_status")
 def get_company_status():
     """Get company status."""
@@ -243,6 +263,12 @@ def create_post():
 
     return render_template("post_details.html", post=new_post, user=user)
 
+
+@app.route("/get_company_status")
+def show_company_status():
+    """Get and show a company's status."""
+
+    return render_template("company_status.html")
 
 @app.route('/hiring_posts')
 def show_companies():

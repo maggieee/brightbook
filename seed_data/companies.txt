@@ -2,3 +2,21 @@
 2|Reddit|y|y|https://www.redditinc.com/careers/
 3|Funding Circle US|y|y|https://www.fundingcircle.com/us/about/careers/
 4|Zillow|y|y|https://www.zillow.com/careers/
+5|LTSE (Long-term Stock Exchange)|y|y|https://jobs.lever.co/ltse		
+6|PagerDuty|y|y|https://jobs.lever.co/pagerduty		
+7|SurveyMonkey|y|y|https://www.surveymonkey.com/mp/job-listings/		
+8|Dropbox|y|y|https://www.dropbox.com/jobs/all-jobs		
+9|Nylas|y|y|https://www.nylas.com/company/jobs/		
+10|SiSense|y|y|https://www.sisense.com/careers/		
+11|Autolist|y|y|https://www.autolist.com/about-us#jobs		
+12|Pinterest|y|y|https://www.pinterestcareers.com/jobs/search?page=1&department_uids%5B%5D=70a034e7e24e66ce7ab45e19a7cd484d&query=		
+13|HDMZ|y|y|https://www.hdmz.com/careers		
+14|Kapwing|y|y|https://jobs.lever.co/kapwing		
+15|Globality|y|y|https://www.globality.com/en-us/careers		
+16|DataDog|y|y|https://www.datadoghq.com/jobs-engineering/		
+17|JackPocket|y|y|https://jackpocket.com/careers/		
+18|Expanse|y|y|https://www.expanse.co/jobs/		
+19|Mya Systems|y|y|https://boards.greenhouse.io/myasystems		
+20|Cambia Health Solutions|y|y|https://careers-cambiahealth.icims.com/jobs/intro?hashed=-435680028&mobile=false&width=970&height=500&bga=true&needsRedirect=false&jan1offset=-480&jun1offset=-420		
+21|Curai|y|y|https://www.curai.com/work		
+22|Mapbox|y|y|https://www.mapbox.com/careers/

@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block content %}
+
+  <h4>Look up company status</h4>
+
+  <form id="update-company-status" action="/company_status">
+    Company Name: <input type="text" name="company_name" id="company-name">
+    <p><input type=submit value="Look up company"></p>
+  </form>
+
+  <div id="company-status">Company Status</div>
+
+  <script src="/static/js/company_status.js"></script>
+  
+{% endblock %}

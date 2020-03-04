@@ -3,20 +3,28 @@
 
 {% if 'email' in session %}
 
-  <h2>Company Directory</h2>
-
-  <h4><a href="/create_company">Add a company for review</a></h4>
-  <br>
-  <h4>Companies to be reviewed</h4>
-
-  <form id="update-company-status" action="/company_status">
-    Company Name: <input type="text" name="company_name" id="company-name">
-    <p><input type=submit value="Look up company"></p>
+  <h2>Companies</h2>
+  
+  <form id="company-search-form" action="/company_search">
+    <select id="company-search" class="company-search" name="company_name">
+      {% for company in companies %}
+      <option value="{{ company.company_name }}">{{ company.company_name }}</option>
+      {% endfor %}
+    </select>
+    <input type=submit value="Submit">
   </form>
 
-  <div id="company-status">Company Status</div>
+  <div id="company-search-result">Hello</div>
 
-  <ul>
+  <br>
+
+  <h4><a href="/create_company">Submit a company for review</a></h4>
+  <br>
+
+
+  <h4>All Companies</h4>
+
+  <ul style="list-style: none;">
     {% for company in companies %}
     <li>
       <a href="/companies/{{ company.company_id }}">
@@ -26,8 +34,6 @@
     </li>
     {% endfor %}
   </ul>
-
-  <iframe width="1020px" height="600px" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vQl7G3qqHzZsykC_5gYe3I3sAgXKf9LO1M0uB8GD3pQGrvQ-oA4N7xCeD5kudMtHaroA52R1Cnx71oe/pubhtml?gid=0&single=true"></iframe>
   
   {% else %}
   
@@ -35,6 +41,7 @@
   
   {% endif %} 
 
-  <script src="/static/js/company_status.js"></script>
+  <script src="/static/js/company_search.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
   
   {% endblock %}

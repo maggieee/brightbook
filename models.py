@@ -157,6 +157,7 @@ class Company(db.Model):
     hired_hackbrighters = db.Column(db.Boolean, nullable=False)
     job_listings_link = db.Column(db.String(300), nullable=True)
     company_contact = db.Column(db.String(300), nullable=True)
+    company_notes = db.Column(db.Text, nullable=True)
     joined_at = db.Column(db.DateTime, nullable=False,
                           default=datetime.datetime.now)
 

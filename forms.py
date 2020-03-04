@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
 from wtforms import (StringField, PasswordField, HiddenField, BooleanField, 
-                    SubmitField, validators)
+                    SubmitField, TextField, validators)
 from wtforms.validators import (DataRequired, Regexp, ValidationError, Email,
                                 Length, EqualTo)
 
@@ -26,7 +26,9 @@ class CreateCompanyForm(FlaskForm):
     company_name = StringField('Company Name')
     hired_hackbrighters = BooleanField('Has hired a Hackbrighter?')
     hired_bootcamp_grads = BooleanField('Has hired a bootcamp grad?')
-    company_link = StringField('URL')
+    job_listings_link = StringField('URL')
+    company_contact = StringField('Company Contact')
+    company_notes = TextField('Notes')
 
 
 class CreateMessageForm(FlaskForm):

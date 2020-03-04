@@ -10,18 +10,15 @@
   <br>
   <h4><a href="/create_hiring_post">Write new hiring post</a></h4>
   <br>
-  <ul>
+  <ul style="list-style: none;">
     {% for hiring_post in hiring_posts %}
-      <li>
+      <li style="border-style:solid; background-color:#f3edf8; border-color:#ece6ff; border-radius: 10px;>
         Posted {{ hiring_post.posted_at | humanize }} by <a href="/users/{{ hiring_post.user_id }}"><b>User {{ hiring_post.user_id }}</b></a> | <a href="/hiring_posts/{{ hiring_post.hiring_post_id }}">
           Read full post</a>
             <br>
             <br>
           
             {{ hiring_post.post_text | safe }}
-            <br>
-            <br>  
-          __________________________________________________________________________
         <br>
       </li>
     {% endfor %}
