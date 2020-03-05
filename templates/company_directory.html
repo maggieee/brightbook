@@ -11,18 +11,19 @@
       <option value="{{ company.company_name }}">{{ company.company_name }}</option>
       {% endfor %}
     </select>
-    <input type=submit value="Submit">
+    <input type=submit value="Search!">
   </form>
 
-  <div id="company-search-result">Hello</div>
+  <!-- <div id="company-has-hired-hackbrighters"></div> -->
+  <div id="company-job-listings"></div>
 
   <br>
 
-  <h4><a href="/create_company">Submit a company for review</a></h4>
+  <h4><a href="/create_company">Submit a new company</a></h4>
   <br>
 
 
-  <h4>All Companies</h4>
+  <!-- <h4>All Companies</h4>
 
   <ul style="list-style: none;">
     {% for company in companies %}
@@ -33,7 +34,7 @@
       
     </li>
     {% endfor %}
-  </ul>
+  </ul> -->
   
   {% else %}
   

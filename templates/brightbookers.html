@@ -4,14 +4,14 @@
 
 <h2>Community Directory</h2>
 
-<ul>
+<ul style="list-style: none;">
   {% for user in users %}
-  <li>
+  <li style="border-style:solid; background-color:#f3edf8; border-color:#ece6ff; border-radius: 10px;">
     <a href="/users/{{ user.user_id }}">
       {{ user.display_name }} <br />
-      ({{ user.email }})
     </a>
   </li>
+  <br>
   {% endfor %}
 </ul>
 

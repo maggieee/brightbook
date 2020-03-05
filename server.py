@@ -129,16 +129,21 @@ def company_search():
 
     company_name = request.args.get("company_name")
 
+    print(company_name)
+
     company = Company.query.filter_by(company_name=company_name).first()
 
-    comp = {}
+    print(company)
 
-    comp[company.company_name] = {'company_id': company.company_id,
-                                            'hired_bootcamp_grads': company.hired_bootcamp_grads,
-                                            'hired_hackbrighters': company.hired_hackbrighters,
-                                            'job_listings_link': company.job_listings_link,
-                                            'company_contact': company.company_contact,
-                                            'joined_at': company.joined_at}
+    # comp = {}
+
+    comp = {'company_name': company.company_name,
+            'company_id': company.company_id,
+            'hired_bootcamp_grads': company.hired_bootcamp_grads,
+            'hired_hackbrighters': company.hired_hackbrighters,
+            'job_listings_link': company.job_listings_link,
+            'company_contact': company.company_contact,
+            'joined_at': company.joined_at}
 
     return jsonify(comp)
 
@@ -180,10 +185,13 @@ def create_company():
     if request.form.get('hired_bootcamp_grads') == 'n':
         hired_hackbrighters = False
 
-    company_link = request.form.get('company_link').strip()
+    job_listings_link = request.form.get('job_listings_link').strip()
+    company_contact = request.form.get('company_contact').strip()
+    company_notes = request.form.get('company_notes').strip()
 
     new_company = Company(company_name=company_name, hired_hackbrighters=hired_hackbrighters, 
-        hired_bootcamp_grads=hired_bootcamp_grads, company_link=company_link)
+        hired_bootcamp_grads=hired_bootcamp_grads, job_listings_link=job_listings_link, 
+        company_contact=company_contact, company_notes=company_notes)
 
     if len(Company.query.filter_by(company_name=company_name).all()) == 0:
 

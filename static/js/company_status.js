@@ -6,6 +6,6 @@
     const companyName = $('#company-name').val();
 
     $.get('/company_status', {company_name: companyName}, (res) => {
-      $('#company-status').html(res);
+      $('#company-status').text(res);
     });
   });
