@@ -1,17 +1,18 @@
 from jinja2 import StrictUndefined
 from flask import (Flask, render_template, flash, redirect, url_for, request,
-                   session)
+                   session, jsonify)
 from flask_debugtoolbar import DebugToolbarExtension
-from forms import RegisterForm, LoginForm, CreateMessageForm, CreatePostForm
+from forms import (RegisterForm, LoginForm, CreateCompanyForm, CreateMessageForm, CreatePostForm, 
+                    CreateHiringPostForm)
 from sqlalchemy import text
 import bleach
 from datetime import datetime
 
 import models
-from models import User, Post, Heart, Message, db, connect_to_db
+from models import User, Post, Heart, HiringPost, Message, Company, db, connect_to_db
 
 from helpers import (add_and_commit_thing_to_database, create_new_post_from_summernote,
-                     get_current_user_from_session, delete_db_object)
+                     create_new_hiring_post_from_summernote, get_current_user_from_session, delete_db_object)
 
 
 app = Flask(__name__)
@@ -46,6 +47,31 @@ def index():
         return render_template("index.html")
 
 
+@app.route("/api/v1/companies")
+def company_list_api():
+    """Show JSON list of companies."""
+
+    if 'email' in session:
+        companies = Company.query.all()
+
+        comps = {}
+
+        for comp in companies:
+            comps[comp.company_name] = {'company_id': comp.company_id,
+                                            'hired_bootcamp_grads': comp.hired_bootcamp_grads,
+                                            'hired_hackbrighters': comp.hired_hackbrighters,
+                                            'job_listings_link': comp.job_listings_link,
+                                            'company_contact': comp.company_contact,
+                                            'joined_at': comp.joined_at}
+
+        return jsonify(comps)
+
+    else:
+        flash('Please log in to view Companies.')
+
+        return redirect('/')
+
+
 @app.route('/brightbookers')
 def show_brightbookers():
     """List the brightbookers"""
@@ -73,6 +99,115 @@ def show_brightnews():
         return redirect('/')
 
 
+@app.route("/companies")
+def company_list():
+    """Show list of companies."""
+
+    if 'email' in session:
+        companies = Company.query.order_by("company_name")
+
+        return render_template("company_directory.html", companies=companies)
+
+    else:
+        flash('Please log in to view Companies.')
+
+        return redirect('/')
+
+
+@app.route("/companies/<company_id>")
+def show_company_details(company_id):
+    """Show company details."""
+
+    company = Company.query.filter_by(company_id=company_id).first_or_404()
+
+    return render_template("company_details.html", company=company)
+
+
+@app.route("/company_search")
+def company_search():
+    """Return search results for a company."""
+
+    company_name = request.args.get("company_name")
+
+    print(company_name)
+
+    company = Company.query.filter_by(company_name=company_name).first()
+
+    print(company)
+
+    # comp = {}
+
+    comp = {'company_name': company.company_name,
+            'company_id': company.company_id,
+            'hired_bootcamp_grads': company.hired_bootcamp_grads,
+            'hired_hackbrighters': company.hired_hackbrighters,
+            'job_listings_link': company.job_listings_link,
+            'company_contact': company.company_contact,
+            'joined_at': company.joined_at}
+
+    return jsonify(comp)
+
+
+@app.route("/company_status")
+def get_company_status():
+    """Get company status."""
+
+    company_name = request.args.get("company_name")
+
+    if Company.query.filter_by(company_name=company_name).first() is not None:
+        return f"{company_name} has been submitted and is under review."
+
+    if Company.query.filter_by(company_name=company_name).first() is None:
+        return f"{company_name} has either already been approved or is not yet submitted. Please check reviewed listings below and submit if it's not already there!"
+
+
+@app.route('/create_company')
+def show_create_company_page():
+    """Show the add a company page"""
+
+    form = CreateCompanyForm()
+
+    return render_template("create_company.html", form=form)
+
+
+@app.route('/create_company', methods=["POST"])
+def create_company():
+    """Add a new company."""
+
+    company_name = request.form.get('company_name').strip()
+    hired_hackbrighters = True
+    
+    if request.form.get('hired_hackbrighters') == 'n':
+        hired_hackbrighters = False
+
+    hired_bootcamp_grads = True
+    
+    if request.form.get('hired_bootcamp_grads') == 'n':
+        hired_hackbrighters = False
+
+    job_listings_link = request.form.get('job_listings_link').strip()
+    company_contact = request.form.get('company_contact').strip()
+    company_notes = request.form.get('company_notes').strip()
+
+    new_company = Company(company_name=company_name, hired_hackbrighters=hired_hackbrighters, 
+        hired_bootcamp_grads=hired_bootcamp_grads, job_listings_link=job_listings_link, 
+        company_contact=company_contact, company_notes=company_notes)
+
+    if len(Company.query.filter_by(company_name=company_name).all()) == 0:
+
+        add_and_commit_thing_to_database(new_company)
+
+        flash("The company was successfully added!")
+
+        return redirect("/companies")
+
+    else:
+
+        flash("Company name has already been taken. Please try again.")
+
+        return redirect("/create_company")
+
+
 @app.route('/create_message/<user_id>')
 def show_create_message_page(user_id):
     """Show the message page"""
@@ -98,7 +233,24 @@ def create_message():
 
     return redirect(f"/users/{recipient}")
 
+@app.route('/create_hiring_post')
+def show_create_hiring_post_page():
+    """Show the hiring post page"""
 
+    form = CreateHiringPostForm()
+
+    return render_template("create_hiring_post.html", form=form)
+
+
+@app.route('/create_hiring_post', methods=["POST"])
+def create_hiring_post():
+    """Create a new hiring post with a user and post text."""
+
+    user = get_current_user_from_session()
+    new_post = create_new_hiring_post_from_summernote(user)
+    add_and_commit_thing_to_database(new_post)
+
+    return render_template("hiring_post_details.html", hiring_post=new_post, user=user)
 
 @app.route('/create_post')
 def show_create_post_page():
@@ -118,6 +270,30 @@ def create_post():
     add_and_commit_thing_to_database(new_post)
 
     return render_template("post_details.html", post=new_post, user=user)
+
+
+@app.route("/get_company_status")
+def show_company_status():
+    """Get and show a company's status."""
+
+    return render_template("company_status.html")
+
+@app.route('/hiring_posts')
+def show_hiring_posts():
+    """Show the hiring post feed"""
+
+    hiring_posts = HiringPost.query.order_by(text("posted_at desc"))
+
+    users = User.query.all()
+
+    if 'email' in session:
+
+        return render_template("hiring_posts.html", hiring_posts=hiring_posts, users=users)
+
+    else:
+        flash('Please log in to see the hiring feed.')
+
+        return redirect('/')
 
 
 @app.route('/login')

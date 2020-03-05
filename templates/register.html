@@ -1,14 +1,14 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<div class="formwrapper">
+<div class="form-group">
     <h2 class="title">Register for a new account</h2>
     <form method="POST" action="/register">
-        <div class="form-field">{{ form.display_name.label }} {{ form.display_name(size=20) }}</div>
-        <div class="form-field">{{ form.email.label }} {{ form.email }}</div>
-        <div class="form-field">{{ form.password.label }} {{ form.password }}</div>
+        <div class="form-control">{{ form.display_name.label }} {{ form.display_name(size=20) }}</div>
+        <div class="form-control">{{ form.email.label }} {{ form.email }}</div>
+        <div class="form-control">{{ form.password.label }} {{ form.password }}</div>
         <!-- <div class="form-field">{{ form.password2.label }} {{ form.password2 }}</div> -->
-        <p><input type=submit value=Register></p>
+        <p><input type=submit class="form-control" value=Register></p>
     </form>
 </div>
 

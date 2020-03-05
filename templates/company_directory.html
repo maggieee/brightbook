@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% block content %}
+
+{% if 'email' in session %}
+
+  <h2>Companies</h2>
+  
+  <form id="company-search-form" action="/company_search">
+    <select id="company-search" class="company-search" name="company_name">
+      {% for company in companies %}
+      <option value="{{ company.company_name }}">{{ company.company_name }}</option>
+      {% endfor %}
+    </select>
+    <input type=submit value="Search!">
+  </form>
+
+  <!-- <div id="company-has-hired-hackbrighters"></div> -->
+  <div id="company-job-listings"></div>
+
+  <br>
+
+  <h4><a href="/create_company">Submit a new company</a></h4>
+  <br>
+
+
+  <!-- <h4>All Companies</h4>
+
+  <ul style="list-style: none;">
+    {% for company in companies %}
+    <li>
+      <a href="/companies/{{ company.company_id }}">
+        {{ company.company_name }} </a>
+        {{ company.job_listings_link }}
+      
+    </li>
+    {% endfor %}
+  </ul> -->
+  
+  {% else %}
+  
+  <p>Please log in to view Companies.</p>
+  
+  {% endif %} 
+
+  <script src="/static/js/company_search.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
+  
+  {% endblock %}

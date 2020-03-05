@@ -3,9 +3,11 @@
 
   <h2>Newsfeed</h2>
 
-  <ul>
+  <h4><a href="/create_post">Write new post</a> </h4>
+
+  <ul style="list-style: none;">
     {% for post in posts %}
-      <li>
+      <li style="border-style:solid; background-color:#f3edf8; border-color:#ece6ff; border-radius: 10px;">
         Posted {{ post.posted_at | humanize }} by <a href="/users/{{ post.user_id }}"><b>User {{ post.user_id }}</b></a> | <a href="/posts/{{ post.post_id }}">
           Read full post</a>
             <br>
@@ -27,12 +29,9 @@
               
                 <input type="submit" value="Heart!" id="heart">
               </form>
-            
-        
-          
-          __________________________________________________________________________
         <br>
       </li>
+      <br>
     {% endfor %}
   </ul>
 

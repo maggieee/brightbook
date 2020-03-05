@@ -1,3 +1,16 @@
-.form-field {
+/* body { 
+    background-color: #f7f0fa;
+} */
+
+/* .form-field {
     font-family: sans-serif;
+} */
+
+.flashes {
+    color: brown;
+    background-color: pink;
+}
+
+#submit-button {
+    background-color: #ffc400;
 }

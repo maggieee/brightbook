@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block content %}
+
+  <p>Post {{ hiring_post.hiring_post_id }} by {{ user.display_name }}:</p>
+        
+    
+  {{ hiring_post.post_text | safe }}
+
+  <p> {{ hiring_post.posted_at }} </p>
+
+      <a href="/hiring_posts">Return to Hiring Posts</a> 
+
+{% endblock %}
