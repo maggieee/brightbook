@@ -12,8 +12,8 @@
   <br>
   <ul style="list-style: none;">
     {% for hiring_post in hiring_posts %}
-      <li style="border-style:solid; background-color:#f3edf8; border-color:#ece6ff; border-radius: 10px;>
-        Posted {{ hiring_post.posted_at | humanize }} by <a href="/users/{{ hiring_post.user_id }}"><b>User {{ hiring_post.user_id }}</b></a> | <a href="/hiring_posts/{{ hiring_post.hiring_post_id }}">
+      <li style="border-style:solid; background-color:#f3edf8; border-color:#ece6ff; border-radius: 10px">
+        Posted {{ hiring_post.posted_at | humanize }} by <a href="/users/{{ hiring_post.user_id }}"><b>User {{ (hiring_post.user_id) }}</b></a> | <a href="/hiring_posts/{{ hiring_post.hiring_post_id }}">
           Read full post</a>
             <br>
             <br>

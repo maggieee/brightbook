@@ -14,20 +14,20 @@
 
 <!-- Code for everybody -->
 
-  <ul>
+  <ul style="list-style: none;">
 
-  Email: 
-  <li> {{ user.email }} </li>
+  <h5>Email:</h5>
+  <li style="border-style:solid; background-color:#f3edf8; border-color:#ece6ff; border-radius: 10px"> {{ user.email }} </li>
       
   </ul>
   
   {% if user.posts %}
 
   <br>
-  <ul>
-  Posts:
+  <ul style="list-style: none;">
+  <h5>Posts:</h5>
     {% for post in user.posts %}
-      <li>
+      <li style="border-style:solid; background-color:#f3edf8; border-color:#ece6ff; border-radius: 10px">
       <a href="/posts/{{ post.post_id }}">
         {{ post.post_text | safe }} </a> <br>
         Posted {{ post.posted_at | humanize }}
@@ -43,6 +43,7 @@
           {% endif %} -->
 
       </li>
+      <br>
     {% endfor %}
 
   </ul>
@@ -50,15 +51,15 @@
 
     <br>
       
-  <ul>
+  <ul style="list-style: none;">
     {% if user.hearts %}
-      <3'd posts:
+      <h5><3'd posts:</h5>
   
         {% for heart in user.hearts %}
-            <li>
+            <li style="border-style:solid; background-color:#f3edf8; border-color:#ece6ff; border-radius: 10px">
               <a href="/posts/{{ heart.post_id }}">{{ heart.post_id }} </a> <br>
             </li>
-
+            <br>
         {% endfor %}
 
       </li>

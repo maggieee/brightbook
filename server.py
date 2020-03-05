@@ -279,7 +279,7 @@ def show_company_status():
     return render_template("company_status.html")
 
 @app.route('/hiring_posts')
-def show_companies():
+def show_hiring_posts():
     """Show the hiring post feed"""
 
     hiring_posts = HiringPost.query.order_by(text("posted_at desc"))

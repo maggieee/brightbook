@@ -9,24 +9,23 @@
     <a href="/messages">View my messages</a></h5>
 
 
-  <ul>
+  <ul style="list-style: none;">
 
     
 
   <h4>Contact Info:</h4>
-  <ul>
-  <li>{{ user.email }} </li>
-</ul>
+
+  <li style="border-style:solid; background-color:#f3edf8; border-color:#ece6ff; border-radius: 10px">{{ user.email }} </li>
 
   </ul>
   {% if user.posts %}
 
   <br>
-  <ul>
+  <ul style="list-style: none;">
   <h4>Posts:</h4>
-  <ul>
+  
     {% for post in user.posts %}
-      <li>
+      <li style="border-style:solid; background-color:#f3edf8; border-color:#ece6ff; border-radius: 10px">
         Posted {{ post.posted_at | humanize }} by <b>User {{ post.user_id }}</b> | <a href="/posts/{{ post.post_id }}">
           Read full post</a>
             <br>
@@ -42,12 +41,13 @@
                     <br>
                   {% endfor %}
               {% endif %}
-              __________________________________________________________________________
+             
       </li>
+      <br>
     {% endfor %}
     
 
-  </ul>
+  
   {% endif %}
 
     <br>
@@ -56,9 +56,9 @@
     {% if user.hearts %}
       <h4> Favorited posts:</h4>
   
-  <ul>
+
         {% for heart in user.hearts %}
-            <li>
+            <li style="border-style:solid; background-color:#f3edf8; border-color:#ece6ff; border-radius: 10px">
               <a href="/posts/{{ heart.post_id }}">{{ heart.post_id }} </a> <br>
             </li>
 
@@ -66,5 +66,4 @@
 
       </li>
     {%endif %}
-  </ul>
 {% endblock %}
