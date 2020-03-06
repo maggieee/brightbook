@@ -6,32 +6,33 @@ container {
     background-color: #deb8f3; 
 }
 
-h1 {
-    color: #640468
-}
-
-h2 {
-    color: #640468
-}
-
-h3 {
-    color: #640468
-}
-
-h4 {
-    color: #640468
-}
-
-h5 {
-    color: #640468
-}
-
-h6 {
-    color: #640468
-}
+body {
+    font-family: 'Poppins', sans-serif;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Libre Baskerville', serif;
+    color: #640468;
+  }
 
 a {
     color: #ff00aa
+}
+
+.btn {
+
+}
+
+#post-guts {
+    font-size: large;
+}
+
+input {
+    border-width: 0px;
+}
+
+label {
+    font-weight: 400;
 }
 
 /* .form-field {
