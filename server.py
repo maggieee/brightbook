@@ -32,16 +32,20 @@ def index():
     """Show the homepage"""
 
     if 'email' in session:
-        print("****SESSION****")
-        print(session)
 
         email = session['email']
         user = User.query.filter_by(email=email).first_or_404()
 
-        # print("****USER****")
-        # print(user)
+        companies = Company.query.order_by("company_name")
 
-        return render_template("logged_in_homepage.html", user=user)
+        posts = Post.query.order_by(text("posted_at desc"))
+
+        hearts = Heart.query.all()
+
+        users = User.query.all()
+
+        return render_template("logged_in_homepage.html", companies = companies, user=user, 
+        posts=posts, hearts=hearts, users=users)
 
     else:
         return render_template("index.html")

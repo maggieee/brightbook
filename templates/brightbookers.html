@@ -9,6 +9,8 @@
   <li style="border-style:solid; background-color:#f3e8fc; border-color:#cbbdfc; border-radius: 10px; padding: 10px">
     <a href="/users/{{ user.user_id }}">
       {{ user.display_name }} <br />
+      <h6><a href="/create_message/{{ user.user_id }}">
+        Send {{ user.display_name }} a message </a> </h6>
     </a>
   </li>
   <br>
