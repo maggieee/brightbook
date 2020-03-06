@@ -4,13 +4,26 @@
 <div class="form-group">
     <h2 class="title">Add a new company to the directory</h2>
     <form method="POST" action="/create_company">
-        <div class="form-control">{{ form.company_name.label }} {{ form.company_name(size=20) }}</div>
-        <div class="form-control">{{ form.hired_hackbrighters.label }} {{ form.hired_hackbrighters }}</div>
-        <div class="form-control">{{ form.hired_bootcamp_grads.label }} {{ form.hired_bootcamp_grads }}</div>
-        <div class="form-control">{{ form.job_listings_link.label }} {{ form.job_listings_link }}</div>
-        <div class="form-control">{{ form.company_contact.label }} {{ form.company_contact }}</div>
-        <div class="form-control">{{ form.company_notes.label }} {{ form.company_notes }}</div>
-        <p><input type=submit class="form-control" value="Add company"></p>
+        <div class="form-control"><label for="company_name">Company Name
+            <input type="text" id="company_name" name="company_name" required>
+        </div>
+        <div class="form-control"><label for="hired_hackbrighters">Hired Hackbrighters?
+            <input type="checkbox" id="hired_hackbrighters" name="hired_hackbrighters">
+        </div>
+        <div class="form-control"><label for="hired_bootcamp_grads">Hired bootcamp grads?
+            <input type="checkbox" id="hired_bootcamp_grads" name="hired_bootcamp_grads">
+        </div>
+        <div class="form-control"><label for="job_listings_link">Job listings link
+            <input type="text" id="job_listings_link" name="job_listings_link" required>
+        </div>
+        <div class="form-control"><label for="company_contact">Company contact
+            <input type="text" id="company_contact" name="company_contact">
+        </div>
+        <div class="form-control"><label for="company_notes">Notes
+            <input type="text" id="company_notes" name="company_notes">
+        </div>
+
+        <p><input type=submit class='btn btn-warning btn-block' value="Add company"></p>
     </form>
 </div>
 

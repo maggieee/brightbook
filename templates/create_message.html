@@ -9,10 +9,15 @@
 
 <h2 class="title">Write New Message</h2>
 <form method="post" action="/create_message">
-  <div class="form-field">{{ form.recipient(value=recipient) }}</div>
-  <div class="form-field">{{ form.subject.label }} {{ form.subject }}</div>
+
+  <div><label for="recipient">
+    <input type="hidden" id="recipient" value={{ recipient }} name="recipient"></div>
+  <div class="form-control"><label for="subject">Subject
+    <input type="text" id="subject" name="subject" required>
+  </div>
+
   <textarea id="summernote" name="editordata"></textarea>
-  <input type="submit" value="Send Message" />
+  <input type="submit" class='btn btn-warning btn-block' value="Send Message" />
 </form>
 
 <script>

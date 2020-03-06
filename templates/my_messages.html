@@ -7,9 +7,9 @@
 <h2>My Messages</h2>
 
     {% if messages %}
-    <ul>
+    <ul style="list-style: none;">
     {% for message in messages %}
-    <li>
+    <li style="border-style:solid; background-color:#f3edf8; border-color:#ece6ff; border-radius: 10px; padding: 10px">
         Sent at: {{ message.sent_at }} <br>
         Subject: {{ message.subject }} <br>
         Body: <a href="/messages/{{ message.message_id }}">View message</a>

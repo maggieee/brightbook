@@ -4,11 +4,18 @@
 <div class="form-group">
     <h2 class="title">Register for a new account</h2>
     <form method="POST" action="/register">
-        <div class="form-control">{{ form.display_name.label }} {{ form.display_name(size=20) }}</div>
-        <div class="form-control">{{ form.email.label }} {{ form.email }}</div>
-        <div class="form-control">{{ form.password.label }} {{ form.password }}</div>
-        <!-- <div class="form-field">{{ form.password2.label }} {{ form.password2 }}</div> -->
-        <p><input type=submit class="form-control" value=Register></p>
+      
+        <div class="form-control"><label for="display_name">Display Name
+            <input type="text" id="display_name" name="display_name">
+        </div>
+        <div class="form-control"><label for="email">Email
+            <input type="text" id="email" name="email">
+        </div>
+        <div class="form-control"><label for="password">Password
+            <input type="password" id="password" name="password">
+        </div>
+        <p><input type=submit class='btn btn-warning btn-block' value=Register></p>
+      
     </form>
 </div>
 
