@@ -1,6 +1,38 @@
-/* body { 
-    background-color: #f7f0fa;
-} */
+body { 
+    background-color: #fcf7ff; 
+}
+
+container { 
+    background-color: #deb8f3; 
+}
+
+h1 {
+    color: #640468
+}
+
+h2 {
+    color: #640468
+}
+
+h3 {
+    color: #640468
+}
+
+h4 {
+    color: #640468
+}
+
+h5 {
+    color: #640468
+}
+
+h6 {
+    color: #640468
+}
+
+a {
+    color: #ff00aa
+}
 
 /* .form-field {
     font-family: sans-serif;
@@ -11,6 +43,14 @@
     background-color: pink;
 }
 
-#submit-button {
-    background-color: #ffc400;
+/* #submit-button {
+    background-color: #ffe386;
+} */
+
+#community_rules {
+    background-color: rgb(255, 249, 221);
+    border-radius: 10px;
+    padding: 10px;
+    border-style: solid;
+    border-color: #ffe386;
 }

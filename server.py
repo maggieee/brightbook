@@ -2,8 +2,8 @@ from jinja2 import StrictUndefined
 from flask import (Flask, render_template, flash, redirect, url_for, request,
                    session, jsonify)
 from flask_debugtoolbar import DebugToolbarExtension
-from forms import (RegisterForm, LoginForm, CreateCompanyForm, CreateMessageForm, CreatePostForm, 
-                    CreateHiringPostForm)
+# from forms import (RegisterForm, LoginForm, CreateCompanyForm, CreateMessageForm, CreatePostForm, 
+                    # CreateHiringPostForm)
 from sqlalchemy import text
 import bleach
 from datetime import datetime
@@ -32,16 +32,20 @@ def index():
     """Show the homepage"""
 
     if 'email' in session:
-        print("****SESSION****")
-        print(session)
 
         email = session['email']
         user = User.query.filter_by(email=email).first_or_404()
 
-        # print("****USER****")
-        # print(user)
+        companies = Company.query.order_by("company_name")
 
-        return render_template("logged_in_homepage.html", user=user)
+        posts = Post.query.order_by(text("posted_at desc"))
+
+        hearts = Heart.query.all()
+
+        users = User.query.all()
+
+        return render_template("logged_in_homepage.html", companies = companies, user=user, 
+        posts=posts, hearts=hearts, users=users)
 
     else:
         return render_template("index.html")
@@ -165,9 +169,9 @@ def get_company_status():
 def show_create_company_page():
     """Show the add a company page"""
 
-    form = CreateCompanyForm()
+    # form = CreateCompanyForm()
 
-    return render_template("create_company.html", form=form)
+    return render_template("create_company.html")
 
 
 @app.route('/create_company', methods=["POST"])
@@ -212,9 +216,9 @@ def create_company():
 def show_create_message_page(user_id):
     """Show the message page"""
 
-    form = CreateMessageForm()
+    # form = CreateMessageForm()
 
-    return render_template("create_message.html", form=form, recipient=user_id)
+    return render_template("create_message.html", recipient=user_id)
 
 
 @app.route('/create_message', methods=["POST"])
@@ -237,9 +241,9 @@ def create_message():
 def show_create_hiring_post_page():
     """Show the hiring post page"""
 
-    form = CreateHiringPostForm()
+    # form = CreateHiringPostForm()
 
-    return render_template("create_hiring_post.html", form=form)
+    return render_template("create_hiring_post.html")
 
 
 @app.route('/create_hiring_post', methods=["POST"])
@@ -256,9 +260,9 @@ def create_hiring_post():
 def show_create_post_page():
     """Show the register page"""
 
-    form = CreatePostForm()
+    # form = CreatePostForm()
 
-    return render_template("create_post.html", form=form)
+    return render_template("create_post.html")
 
 
 @app.route('/create_post', methods=["POST"])
@@ -300,9 +304,9 @@ def show_hiring_posts():
 def show_login():
     """Show the login page/module"""
 
-    form = LoginForm()
+    # form = LoginForm()
 
-    return render_template("login.html", form=form)
+    return render_template("login.html")
 
 
 @app.route('/login', methods=['POST'])
@@ -467,11 +471,11 @@ def add_heart(post_id):
 def show_registration_page():
     """Show the register page"""
 
-    form = RegisterForm()
+    # form = RegisterForm()
     # if form.validate_on_submit():
     #     return redirect(url_for('success'))
 
-    return render_template("register.html", form=form)
+    return render_template("register.html")
 
 
 @app.route('/register', methods=["POST"])

@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-  <link rel="stylesheet" type="text/css" href="static/styles.css" />
+  
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -12,6 +12,8 @@
       rel="stylesheet"
     />
     <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="static/styles.css" />
     
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -28,9 +30,9 @@
   <body>
     <div class="container">
 
-  <h2>About {{ company.company_name }}:</h2>
+  <h3>About {{ company.company_name }}:</h3>
 
-  <div id="about_company" style="border-style:solid; background-color:#f3edf8; border-color:#ece6ff; border-radius: 10px">
+  <div id="about_company" style="border-style:solid; background-color:#f3e8fc; border-color:#cbbdfc; border-radius: 10px; padding: 10px">
  
   <!-- {% if company.hired_bootcamp_grads %} 
   <li> {{ company.company_name }} has hired bootcamp grads. </li>

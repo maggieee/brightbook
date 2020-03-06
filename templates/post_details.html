@@ -12,25 +12,27 @@
 
      <form action="/posts/{{ post.post_id }}/heart" method="POST"> 
       
-        <input type="submit" value="Heart!" id="heart">
+        <input type="submit" class="btn btn-info" value="Heart!" id="heart">
       </form>
 
   {% endif %}
 
 
       {% if post.hearts %}
-        <ul>
+        
           {% for heart in post.hearts %}
-            <li> {{ heart.heart_type }} by User {{ heart.user_id }} </li>
+            <li style="list-style: none;"> {{ heart.heart_type }} by User {{ heart.user_id }} </li>
           {% endfor %}
-        </ul>
+        
       {% endif %}
 
 
       {% if user.email == session['email'] %}
+      <br> 
+      <br>
       <form action="/posts/{{ post.post_id }}/delete" method="DELETE"> 
       
-        <input type="submit" value="Delete Post" id="delete">
+        <input type="submit" class="btn btn-info" value="Delete Post" id="delete">
       </form>
       {% endif %}
 

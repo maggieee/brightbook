@@ -4,9 +4,13 @@
 <div class="form-group">
     <h2 class="title">Log in to your account</h2>
     <form method="POST" action="login">
-        <div class="form-control">{{ form.email.label }} {{ form.email }}</div>
-        <div class="form-control">{{ form.password.label }} {{ form.password }}</div>
-        <p><input type=submit id="submit-button" class='btn btn-warning btn-block' value="Log in"></p>
+        <div class="form-control"><label for="email">Email
+            <input type="text" id="email" name="email">
+        </div>
+        <div class="form-control"><label for="password">Password
+            <input type="password" id="password" name="password">
+        </div>
+        <p><input type=submit id="submit-button" class='btn btn-warning btn-block'  value="Log in"></p>
     </form>
 </div>
 
