@@ -600,10 +600,11 @@ def humanize_ts(time=False):
 
 app.jinja_env.filters['humanize'] = humanize_ts
 
+connect_to_db(app)
+
 if __name__ == "__main__":
     # We have to set debug=True here, since it has to be True at the
     # point that we invoke the DebugToolbarExtension
-    connect_to_db(app)
 
     # Use the DebugToolbar
     DebugToolbarExtension(app)

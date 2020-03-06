@@ -1,9 +1,12 @@
 import datetime
 import hashlib
+import os
 
 from flask_login import UserMixin
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
+
+
 
 db = SQLAlchemy()
 
@@ -165,11 +168,11 @@ class Company(db.Model):
 # Helper functions
 
 
-def connect_to_db(app):
+def connect_to_db(app, db_uri=os.getenv('DATABASE_URL')):
     """Connect the database to our Flask app."""
 
     # Configure to use our database.
-    app.config["SQLALCHEMY_DATABASE_URI"] = "postgres:///brightbook"
+    app.config["SQLALCHEMY_DATABASE_URI"] = db_uri
     app.config["SQLALCHEMY_ECHO"] = False
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
     db.app = app

@@ -15,19 +15,13 @@ class FlaskTests(TestCase):
         connect_to_db(app, db_uri='postgresql:///testdb')
         db.create_all()
 
-        #example_data will error out atm, need to create
         load_users()
 
-        # bird = Bird(species="bluebird", 
-        #             scientific_name="reallyo scientifico bluebirdius")
-        # db.session.add(bird)
-        # db.session.commit()
+    def tearDown(self):
+        """Stuff to do after tests."""
 
-    # def tearDown(self):
-    #     """Stuff to do after tests."""
-
-    #     db.session.remove()
-    #     db.drop_all()
+        db.session.remove()
+        db.drop_all()
 
     def test_logged_out_homepage(self):
         """Check that the homepage loads for a logged-out user."""
