@@ -168,13 +168,14 @@ class Company(db.Model):
 # Helper functions
 
 
-def connect_to_db(app, db_uri=os.getenv('DATABASE_URL')):
+def connect_to_db(app, db_uri="postgres:///brightbook"):
     """Connect the database to our Flask app."""
 
     # Configure to use our database.
     app.config["SQLALCHEMY_DATABASE_URI"] = db_uri
     app.config["SQLALCHEMY_ECHO"] = False
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+    app.config["DEBUG_TB_INTERCEPT_REDIRECTS"] = False
     db.app = app
     db.init_app(app)
 
