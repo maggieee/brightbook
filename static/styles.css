@@ -1,5 +1,5 @@
 body { 
-    background-color: #fcf7ff; 
+    background-color: #ffffff; 
 }
 
 /* .container { 
@@ -7,8 +7,8 @@ body {
 } */
 
 .btn-danger {
-    background-color: salmon;
-    border-color: darksalmon;
+    background-color: rgb(233, 122, 155);
+    border-width: 0px;
 }
 
 body {
@@ -21,7 +21,7 @@ body {
   }
 
 a {
-    color: #ff00aa
+    color: #ff00aa;
 }
 
 #hearts {
@@ -31,9 +31,10 @@ a {
 
 #brightnews-post {
     border-style:solid; 
-    background-color:#f3e8fc; 
+    border-width: 2px;
+    background-color:#ede8fc; 
     border-color:#cbbdfc; 
-    border-radius: 10px; 
+    border-radius: 8px; 
     padding: 10px;
 }
 
@@ -44,7 +45,7 @@ a {
 
 #post-wrapper {
     border-style:solid; 
-    background-color:#ffffff; 
+    background-color:#f7feff; 
     border-color:#cbbdfc; 
     border-radius: 10px; 
     padding: 10px;
