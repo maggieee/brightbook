@@ -3,27 +3,29 @@
 
   <h2>Hiring Posts</h2>
   <div id="community_rules">
-  <b>Community Rules:</b> BrightBook is a supportive community that provides value to both job seekers and hiring teams. We ask that you uphold your side of this agreement: 
-  <br>
+  <h4>Community Rules:</h4> BrightBook is a supportive community that provides value to both job seekers and hiring teams. We ask that you uphold your side of this agreement: 
+  <br><br>
   <li>Please limit posts to ones that provide benefit to job seekers.</li>
   <li>Please do not post about the same opportunity more than once a week.</li>
   <li>Posts that do not meet these guidelines will be removed.</li>
   </div>
   <h4><a href="/create_hiring_post">Write new hiring post</a></h4>
   <br>
-  <ul style="list-style: none;">
+  <!-- <ul style="list-style: none;"> -->
     {% for hiring_post in hiring_posts %}
-      <li style="border-style:solid; background-color:#f3e8fc; border-color:#cbbdfc; border-radius: 10px; padding: 10px">
+      <!-- <li style="border-style:solid; background-color:#f3e8fc; border-color:#cbbdfc; border-radius: 10px; padding: 10px"> -->
+      <div id="brightnews-post">
         Posted {{ hiring_post.posted_at | humanize }} by <a href="/users/{{ hiring_post.user_id }}"><b>User {{ (hiring_post.user_id) }}</b></a> | <a href="/hiring_posts/{{ hiring_post.hiring_post_id }}">
           Read full post</a>
             <br>
             <br>
-          
+            <div id="post-guts">
             {{ hiring_post.post_text | safe }}
-        
-      </li>
+          </div>
+      </div>
+      <!-- </li> -->
       <br>
     {% endfor %}
-  </ul>
+  <!-- </ul> -->
 
 {% endblock %}

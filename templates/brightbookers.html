@@ -4,18 +4,22 @@
 
 <h2>Community Directory</h2>
 
-<ul style="list-style: none;">
+<!-- <ul style="list-style: none;"> -->
   {% for user in users %}
-  <li style="border-style:solid; background-color:#f3e8fc; border-color:#cbbdfc; border-radius: 10px; padding: 10px">
+  <!-- <li style="border-style:solid; background-color:#f3e8fc; border-color:#cbbdfc; border-radius: 10px; padding: 10px"> -->
+  <div id="brightnews-post">  
+    <div id="post-guts">
     <a href="/users/{{ user.user_id }}">
       {{ user.display_name }} <br />
-      <h6><a href="/create_message/{{ user.user_id }}">
+    </div>
+      <h6 style="text-align: center;"><a href="/create_message/{{ user.user_id }}">
         Send {{ user.display_name }} a message </a> </h6>
     </a>
-  </li>
+  <!-- </li> -->
+  </div>
   <br>
   {% endfor %}
-</ul>
+<!-- </ul> -->
 
 {% else %}
 
