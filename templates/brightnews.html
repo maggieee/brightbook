@@ -10,13 +10,14 @@
       <!-- <li style="border-style:solid; background-color:#f3e8fc; border-color:#cbbdfc; border-radius: 10px; padding: 10px"> -->
         
         
-        Posted {{ post.posted_at | humanize }} by <a href="/users/{{ post.user_id }}"><b>User {{ post.user_id }}</b></a> | <a href="/posts/{{ post.post_id }}">
-          Read full post</a>
+        Posted {{ post.posted_at | humanize }} by <a href="/users/{{ post.user_id }}"><b>User {{ post.user_id }}</b>
             <br>
             <br>
             <div id="brightnews-post">
             <div id="post-guts">
+              <a href="/posts/{{ post.post_id }}">
             {{ post.post_text | safe }}
+              </a>
             </div>
             </div>
         
