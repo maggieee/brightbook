@@ -12,7 +12,7 @@
       rel="stylesheet"
     />
     <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css?family=Libre+Baskerville|Poppins&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Patua+One|Poppins&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="static/styles.css" />
 
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
@@ -29,33 +29,27 @@
 
   <body>
     <div class="container">
-    <brand><a href="/"><img src="/static/images/brightbook2.png" width="150"></a></brand> |
 
-    <!-- Show the login/register links if user is not logged in: -->
+      <nav class="navbar navbar-light bg-light" style="background-color: #e3f2fd;">
+          <div class="navbar-nav">
 
-    {% if 'email' not in session: %}
+            
+            <a class="nav-item nav-link" style="font-size: large; font-weight:300" href="/"><img src="/static/images/bb_logo.png" width="30"></a> 
+            {% if 'email' in session: %}
+            <a class="nav-item nav-link" href="/users">BrightBookers</a> 
+            <a class="nav-item nav-link" href="/hiring_posts">Hiring</a> 
+            <a class="nav-item nav-link" href="/logout">Log out</a>
+            {% endif %}
 
-    <a href="/login">Log In</a>
-    | <a href="/register">Register</a>
 
-    {% endif %}
+            {% if 'email' not in session: %}
+            <a class="nav-item nav-link" href="/login">Log in</a> 
+            <a class="nav-item nav-link" href="/register">Register</a>
+            {% endif %}
 
-    <!-- Show different nav menu if user is logged in -->
-
-    {% if 'email' in session: %}
-    <a href="/users">Browse users</a> |
-    <a href="/brightnews">BrightNews</a> |
-    <a href="/companies">Companies</a> |
-    <a href="/hiring_posts">Hiring Posts</a>
-
-    <form action="/logout" method="POST">
-      <!-- <input type="submit" value="Log out!"> -->
-      <a href="/logout">Log out!</a>
-      {% endif %}
-    </form>
-
+          </div>
+      </nav>
     
-
     {% block content %} put your content here {% endblock %}
   </div>
   </body>

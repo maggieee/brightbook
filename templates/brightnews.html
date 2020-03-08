@@ -1,39 +1,45 @@
 {% extends 'base.html' %}
 {% block content %}
 
-  <h2>Newsfeed</h2>
+  <h1 style="text-align:left">Newsfeed</h1>
 
   <h4><a href="/create_post">Write new post</a> </h4>
 
-  <ul style="list-style: none;">
+  <div id="post-wrapper">
     {% for post in posts %}
-      <li style="border-style:solid; background-color:#f3e8fc; border-color:#cbbdfc; border-radius: 10px; padding: 10px">
-        Posted {{ post.posted_at | humanize }} by <a href="/users/{{ post.user_id }}"><b>User {{ post.user_id }}</b></a> | <a href="/posts/{{ post.post_id }}">
-          Read full post</a>
+      <!-- <li style="border-style:solid; background-color:#f3e8fc; border-color:#cbbdfc; border-radius: 10px; padding: 10px"> -->
+        
+        
+        Posted {{ post.posted_at | humanize }} by <a href="/users/{{ post.user_id }}"><b>User {{ post.user_id }}</b>
             <br>
-            <br>
+            <div id="brightnews-post">
             <div id="post-guts">
+              <a href="/posts/{{ post.post_id }}">
             {{ post.post_text | safe }}
+              </a>
             </div>
-            <br>
-            <br>
+            </div>
         
-        
+            <div id="hearts">
               {% if post.hearts %}
                   {% for heart in post.hearts %}
                     {{ heart.heart_type }} by User {{ heart.user_id }} 
                     <br>
                   {% endfor %}
               {% endif %}
+            
 
               <form action="/posts/{{ post.post_id }}/heart" method="POST"> 
               
-                <input type="submit" class="btn btn-light" value="Heart!" id="heart">
+                <input type="submit" class="btn btn-danger" value="Heart!" id="heart">
               </form>
+            </div>
+         
         
-      </li>
+      <!-- </li> -->
       <br>
     {% endfor %}
-  </ul>
+  </div>
+  <!-- </ul> -->
 
 {% endblock %}
