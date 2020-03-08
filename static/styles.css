@@ -1,5 +1,5 @@
 body { 
-    background-color: #ffffff; 
+    background-color: #f3fbfc; 
 }
 
 /* .container { 
@@ -54,7 +54,7 @@ a {
 #post-wrapper {
     border-style:solid; 
     border-width: 2px;
-    /* background-color:#f6f0fa;  */
+    background-color:#ffffff;
     border-color:#fcbfbd; 
     border-radius: 10px; 
     padding: 10px;
@@ -90,15 +90,32 @@ label {
 }
 
 .navbar-nav {
-    padding-top: 10px;
-    padding-right: 10px;
+    /* padding-top: 10px;
+    padding-right: 10px; */
 }
 
 .nav-link {
-    padding: 10px;
+    padding-right: 10px;
+    padding-left: 10px;
+    /* padding-top: 0px;
+    border-top: 0px;
+    margin-top: 0px; */ */
     /* color: rgb(255, 68, 68); */
 }
 
 .jumbotron {
     height: 700px;
+}
+
+.maggie-footer {
+    background-color:#ffffff; 
+    padding: 10px; 
+    border-radius: 5px; 
+    border-width: 1px; 
+    border-color:#e9e7e7;
+    border-style: solid;
+}
+
+.form-control {
+    border-radius: 5px;
 }

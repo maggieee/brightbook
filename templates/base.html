@@ -32,15 +32,15 @@
 
   <body>
     <div class="container">
-
-      <nav class="navbar navbar-light bg-info">
+      <br>
+      <nav class="navbar navbar-light bg-info" style="background-color:white; border-color:#e9e7e7; border-width: 1px;">
           <div class="navbar-nav">
 
             
-            <a class="nav-item nav-link" style="font-size: large;" href="/"><img src="/static/images/bb_logo.png" width="30"></a> 
+            <a class="nav-item nav-link" style="font-size: medium;" href="/"><img src="/static/images/BrightBook (4).png" width="150"></a> 
             {% if 'email' in session: %}
-            <a class="nav-item nav-link" href="/users"><i class="fa fa-users" aria-hidden="true"></i> Browse users</a> 
-            <a class="nav-item nav-link" href="/hiring_posts"><i class="fa fa-briefcase" aria-hidden="true"></i>
+            <a class="nav-item nav-link" style="font-size: medium;" href="/users"> Stay in touch</a> 
+            <a class="nav-item nav-link" style="font-size: medium;" href="/hiring_posts">
                Get a job</a> 
             <a class="nav-item nav-link" href="/logout"><i class="fa fa-hand-peace-o" aria-hidden="true"></i> Log out</a>
             {% endif %}
@@ -56,22 +56,26 @@
     
     {% block content %} put your content here {% endblock %}
 
+  <div class="container">
     <div class="card text-right">
       <div class="card-header">
           
       </div>
       <div class="card-body" >
         <h5 class="card-title">   </h5>
-        <p class="card-text" style="color:white;">__________________</p>
-        <div class="maggie-footer" style="background-color:rgb(255, 235, 224); padding:10px; border-radius: 5px;">
-        <a href="#" class="btn btn-primary">Sign up for our mailing list</a>
+        <p class="card-text" style="color:#f3fbfc;">__________________</p>
+        <div class="maggie-footer">
+        <a href="#" class="btn btn-primary">Get on the mailing list!</a>
       
       <div class="card-footer text-muted">
         © 2020 BrightBook, Inc.
       </div>
+      
     </div>
     </div>
     </div>
+    <br>
   </div>
+</div>
   </body>
 </html>

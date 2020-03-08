@@ -218,7 +218,9 @@ def show_create_message_page(user_id):
 
     # form = CreateMessageForm()
 
-    return render_template("create_message.html", recipient=user_id)
+    user = User.query.filter_by(user_id=user_id).first_or_404()
+
+    return render_template("create_message.html", recipient=user_id, user=user)
 
 
 @app.route('/create_message', methods=["POST"])
@@ -238,7 +240,7 @@ def create_message():
 
     flash(f"Message sent to {recipient_display_name}!")
 
-    return redirect(f"/users/{recipient_display_name}")
+    return redirect(f"/users")
 
 @app.route('/create_hiring_post')
 def show_create_hiring_post_page():
