@@ -1,17 +1,38 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<div class="form-group">
-    <h2 class="title">Log in to your account</h2>
-    <form method="POST" action="login">
-        <div class="form-control"><label for="email">Email
-            <input type="text" id="email" name="email">
+
+<div class="row">
+    
+
+<div class="col-sm-6">
+    <div class="card-maggie">
+      <div class="card-body">
+        <div class="form-group">
+            <h2 class="title">Log in to your account</h2>
+            <form method="POST" action="login">
+                <div class="form-control"><label for="email">Email
+                    <input type="text" id="email" name="email" required>
+                </div>
+                <div class="form-control"><label for="password">Password
+                    <input type="password" id="password" name="password" required>
+                </div>
+                <p><input type=submit id="submit-button" class='btn btn-warning btn-block'  value="Log in"></p>
+            </form>
         </div>
-        <div class="form-control"><label for="password">Password
-            <input type="password" id="password" name="password">
-        </div>
-        <p><input type=submit id="submit-button" class='btn btn-warning btn-block'  value="Log in"></p>
-    </form>
-</div>
+      </div>
+    </div>
+  </div>
+
+<div class="col-sm-3">
+    <div class="card-maggie">
+      <div class="card-body">
+        <img src="/static/images/bb_logo.png" width="170px">
+        <h5 class="card-title">Or register</h5>
+        <p class="card-text">If you don't have an account already, please register to use BrightBook.</p>
+        <a href="/register" class="btn btn-info">Register</a>
+      </div>
+    </div>
+  </div>
 
 {% endblock %}

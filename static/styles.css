@@ -12,6 +12,10 @@ body {
     margin: 5px;
 }
 
+.card-maggie {
+    padding: 10px;
+}
+
 body {
     font-family: 'Poppins', sans-serif;
   }
@@ -80,6 +84,15 @@ label {
     background-color: rgb(255, 249, 221);
     border-radius: 10px;
     padding: 2px 2px 10px 10px;
-    border-style: solid;
-    border-color: #ffe386;
+    /* border-style: solid; */
+    /* border-color: #ffe386; */
+}
+
+.navbar-nav {
+    padding-top: 10px;
+    padding-right: 10px;
+}
+
+.nav-link {
+    padding: 10px;
 }

@@ -1,31 +1,58 @@
 {% extends 'base.html' %}
 {% block content %}
 
+
+<h2>Companies</h2>
+<h4><a href="/create_company">Submit a new company</a></h4>
+
+  
+<form id="company-search-form" action="/company_search">
+  <select id="company-search" class="company-search" name="company_name">
+    {% for company in companies %}
+    <option value="{{ company.company_name }}">{{ company.company_name }}</option>
+    {% endfor %}
+  </select>
+  <input type=submit class="btn btn-info" value="Search!">
+</form>
+
+<!-- <div id="company-has-hired-hackbrighters"></div> -->
+<div id="company-job-listings"></div>
+
+<br>
+
+
+
   <h2>Hiring Posts</h2>
-  <div id="community_rules">
+  <!-- <div id="community_rules">
   <h4>Community Rules:</h4> BrightBook is a supportive community that provides value to both job seekers and hiring teams. We ask that you uphold your side of this agreement: 
   <br><br>
   <li>Please limit posts to ones that provide benefit to job seekers.</li>
   <li>Please do not post about the same opportunity more than once a week.</li>
   <li>Posts that do not meet these guidelines will be removed.</li>
-  </div>
+  </div> -->
   <h4><a href="/create_hiring_post">Write new hiring post</a></h4>
   <br>
   <!-- <ul style="list-style: none;"> -->
+    <div id="post-wrapper">
     {% for hiring_post in hiring_posts %}
       <!-- <li style="border-style:solid; background-color:#f3e8fc; border-color:#cbbdfc; border-radius: 10px; padding: 10px"> -->
-      <div id="brightnews-post">
-        Posted {{ hiring_post.posted_at | humanize }} by <a href="/users/{{ hiring_post.user_id }}"><b>User {{ (hiring_post.user_id) }}</b></a> | <a href="/hiring_posts/{{ hiring_post.hiring_post_id }}">
-          Read full post</a>
+      
+        Posted {{ hiring_post.posted_at | humanize }} by <a href="/users/{{ hiring_post.user_id }}"><b>User {{ (hiring_post.user_id) }}</b></a>
             <br>
-            <br>
+            <div id="brightnews-post">
             <div id="post-guts">
+              <a href="/hiring_posts/{{ hiring_post.hiring_post_id }}">
             {{ hiring_post.post_text | safe }}
+            </a>
           </div>
       </div>
       <!-- </li> -->
       <br>
     {% endfor %}
+    </div>
   <!-- </ul> -->
+
+  <script src="/static/js/company_search.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
 
 {% endblock %}

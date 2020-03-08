@@ -203,7 +203,7 @@ def create_company():
 
         flash("The company was successfully added!")
 
-        return redirect("/companies")
+        return redirect("/hiring_posts")
 
     else:
 
@@ -290,9 +290,11 @@ def show_hiring_posts():
 
     users = User.query.all()
 
+    companies = Company.query.order_by("company_name")
+
     if 'email' in session:
 
-        return render_template("hiring_posts.html", hiring_posts=hiring_posts, users=users)
+        return render_template("hiring_posts.html", hiring_posts=hiring_posts, users=users, companies=companies)
 
     else:
         flash('Please log in to see the hiring feed.')
