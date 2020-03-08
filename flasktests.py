@@ -83,7 +83,7 @@ class FlaskTests(TestCase):
         with self.client.session_transaction() as sess:
             sess['email'] = "test2@test.com"
 
-        result = self.client.get('/users/4', follow_redirects=True)
+        result = self.client.get('/users/Cornelia%20Person', follow_redirects=True)
         self.assertEqual(result.status_code, 200)
         self.assertIn(b"About Cornelia Person", result.data)
 

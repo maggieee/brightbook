@@ -13,6 +13,7 @@
     />
     <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css?family=Patua+One|Poppins&display=swap" rel="stylesheet">
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="static/styles.css" />
 
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
@@ -20,25 +21,28 @@
     <script src="js/bootstrap.min.js"></script>
 
     <title>BrightBook</title>
-    <ul class="flashes" style="list-style: none;">
+    <!-- <ul class="flashes" style="list-style: none;"> -->
       {% for message in get_flashed_messages() %}
-      <li>{{ message }}</li>
+      <div class="alert alert-warning" role="alert">
+        {{ message}}
+      </div>
       {% endfor %}
-    </ul>
+    <!-- </ul> -->
   </head>
 
   <body>
     <div class="container">
 
-      <nav class="navbar navbar-light bg-light" style="background-color: #e3f2fd;">
+      <nav class="navbar navbar-light bg-info">
           <div class="navbar-nav">
 
             
-            <a class="nav-item nav-link" style="font-size: large; font-weight:300" href="/"><img src="/static/images/bb_logo.png" width="30"></a> 
+            <a class="nav-item nav-link" style="font-size: large;" href="/"><img src="/static/images/bb_logo.png" width="30"></a> 
             {% if 'email' in session: %}
-            <a class="nav-item nav-link" href="/users">BrightBookers</a> 
-            <a class="nav-item nav-link" href="/hiring_posts">Hiring</a> 
-            <a class="nav-item nav-link" href="/logout">Log out</a>
+            <a class="nav-item nav-link" href="/users"><i class="fa fa-users" aria-hidden="true"></i> Browse users</a> 
+            <a class="nav-item nav-link" href="/hiring_posts"><i class="fa fa-briefcase" aria-hidden="true"></i>
+               Get a job</a> 
+            <a class="nav-item nav-link" href="/logout"><i class="fa fa-hand-peace-o" aria-hidden="true"></i> Log out</a>
             {% endif %}
 
 
@@ -51,6 +55,23 @@
       </nav>
     
     {% block content %} put your content here {% endblock %}
+
+    <div class="card text-right">
+      <div class="card-header">
+          
+      </div>
+      <div class="card-body" >
+        <h5 class="card-title">   </h5>
+        <p class="card-text" style="color:white;">__________________</p>
+        <div class="maggie-footer" style="background-color:rgb(255, 235, 224); padding:10px; border-radius: 5px;">
+        <a href="#" class="btn btn-primary">Sign up for our mailing list</a>
+      
+      <div class="card-footer text-muted">
+        © 2020 BrightBook, Inc.
+      </div>
+    </div>
+    </div>
+    </div>
   </div>
   </body>
 </html>

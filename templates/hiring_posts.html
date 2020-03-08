@@ -37,7 +37,7 @@
     {% for hiring_post in hiring_posts %}
       <!-- <li style="border-style:solid; background-color:#f3e8fc; border-color:#cbbdfc; border-radius: 10px; padding: 10px"> -->
       
-        Posted {{ hiring_post.posted_at | humanize }} by <a href="/users/{{ hiring_post.user_id }}"><b>User {{ (hiring_post.user_id) }}</b></a>
+        Posted {{ hiring_post.posted_at | humanize }} by <a href="/users/{{ hiring_post.display_name }}"><b>{{ (hiring_post.display_name) }}</b></a>
             <br>
             <div id="brightnews-post">
             <div id="post-guts">

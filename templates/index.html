@@ -2,17 +2,19 @@
 
 {% block content %}
 
-<h1>Future's so bright...</h1>
-
-<img src="/static/images/sunrise.jpg" height=70% width=70%>
-
-<!-- <h2>BrightNews</h2>
-<p>Log in or register to view posts</p>
-
-<h2>Community</h2>
-<p>Log in or register to view who's on BrightBook</p> -->
-
-<h5>Please log in or register to use BrightBook!</h5> 
+<div class="row">
+    <div class="col-sm-12">
+        <div class="jumbotron" style="background-image: url(/static/images/sunrise.jpg)">
+            <h1 class="display-4">Welcome to BrightBook!</h1>
+            <p class="lead">A place to stay in touch after graduation.</p>
+            <hr class="my-4">
+            <p>The future's so bright...</p>
+            <p class="lead">
+              <a class="btn btn-primary btn-lg" href="/login" role="button">Log in</a>
+              <a class="btn btn-primary btn-lg" href="/register" role="button">Register</a>
+            </p>
+          </div>
+    </div>
 
 {% endblock %}
 

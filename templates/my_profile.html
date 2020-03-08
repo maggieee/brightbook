@@ -26,7 +26,7 @@
   
     {% for post in user.posts %}
       <li style="border-style:solid; background-color:#f3edf8; border-color:#ece6ff; border-radius: 10px">
-        Posted {{ post.posted_at | humanize }} by <b>User {{ post.user_id }}</b> | <a href="/posts/{{ post.post_id }}">
+        Posted {{ post.posted_at | humanize }} by <b>{{ post.display_name }}</b> | <a href="/posts/{{ post.post_id }}">
           Read full post</a>
             <br>
             <br>
@@ -35,12 +35,12 @@
             <br>
         
         
-              {% if post.hearts %}
+              <!-- {% if post.hearts %}
                   {% for heart in post.hearts %}
-                    {{ heart.heart_type }} by User {{ heart.user_id }} 
+                    {{ heart.heart_type }} by User {{ heart.display_name }} 
                     <br>
                   {% endfor %}
-              {% endif %}
+              {% endif %} -->
              
       </li>
       <br>

@@ -21,7 +21,7 @@
       {% if post.hearts %}
         
           {% for heart in post.hearts %}
-            <li style="list-style: none;"> {{ heart.heart_type }} by User {{ heart.user_id }} </li>
+            <li style="list-style: none;"> {{ heart.heart_type }} by User {{ heart.display_name }} </li>
           {% endfor %}
         
       {% endif %}
@@ -36,6 +36,6 @@
       </form>
       {% endif %}
 
-      <a href="/brightnews">Return to BrightNews feed</a> 
+      <a href="/">Return to BrightNews</a> 
 
 {% endblock %}

@@ -69,8 +69,8 @@ class Post(db.Model):
     __tablename__ = "posts"
 
     post_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey(
-        'users.user_id'), nullable=False)
+    display_name = db.Column(db.String(64), db.ForeignKey(
+        'users.display_name'), nullable=False)
     posted_at = db.Column(db.DateTime, nullable=False,
                           default=datetime.datetime.now)
     post_text = db.Column(db.Text, nullable=False)
@@ -92,8 +92,8 @@ class Heart(db.Model):
     heart_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     post_id = db.Column(db.Integer, db.ForeignKey(
         'posts.post_id'), nullable=False)
-    user_id = db.Column(db.Integer, db.ForeignKey(
-        'users.user_id'), nullable=False)
+    display_name = db.Column(db.String(64), db.ForeignKey(
+        'users.display_name'), nullable=False)
     heart_type = db.Column(db.String(50), nullable=False)
     hearted_at = db.Column(db.DateTime, nullable=False,
                            default=datetime.datetime.now)
@@ -113,8 +113,8 @@ class Message(db.Model):
     __tablename__ = "messages"
 
     message_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
-    sender = db.Column(db.Integer, db.ForeignKey(
-        'users.user_id'), nullable=False)
+    sender = db.Column(db.String(64), db.ForeignKey(
+        'users.display_name'), nullable=False)
     recipient = db.Column(db.Integer, nullable=False)
     sent_at = db.Column(db.DateTime, nullable=False,
                         default=datetime.datetime.now)
@@ -135,8 +135,8 @@ class HiringPost(db.Model):
     __tablename__ = "hiring_posts"
 
     hiring_post_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey(
-        'users.user_id'), nullable=False)
+    display_name = db.Column(db.String(64), db.ForeignKey(
+        'users.display_name'), nullable=False)
     posted_at = db.Column(db.DateTime, nullable=False,
                           default=datetime.datetime.now)
     post_text = db.Column(db.Text, nullable=False)

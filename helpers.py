@@ -25,7 +25,7 @@ def create_new_hiring_post_from_summernote(user):
     #     tags=bleach.sanitizer.ALLOWED_TAGS + ['div', 'br', 'span', 'p', 'h1',
     #     'h2', 'h3', 'h4', 'h5', 'h6', 'img', 'u'])
 
-    return HiringPost(user_id=user.user_id, post_text=request.form.get('editordata'))
+    return HiringPost(display_name=user.display_name, post_text=request.form.get('editordata'))
 
 
 def create_new_post_from_summernote(user):
@@ -36,7 +36,7 @@ def create_new_post_from_summernote(user):
     #     tags=bleach.sanitizer.ALLOWED_TAGS + ['div', 'br', 'span', 'p', 'h1',
     #     'h2', 'h3', 'h4', 'h5', 'h6', 'img', 'u'])
 
-    return Post(user_id=user.user_id, post_text=request.form.get('editordata'))
+    return Post(display_name=user.display_name, post_text=request.form.get('editordata'))
 
 
 def get_current_user_from_session():

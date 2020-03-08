@@ -37,7 +37,8 @@ a {
 #brightnews-post {
     border-style:solid; 
     border-width: 0px;
-    background-color:#ffe0dc;  
+    /* background-color:#ffe0dc;  */
+    background-color:#ffe6d0;   
     border-color:#cbbdfc; 
     border-radius: 8px; 
     padding: 10px;
@@ -95,4 +96,9 @@ label {
 
 .nav-link {
     padding: 10px;
+    /* color: rgb(255, 68, 68); */
+}
+
+.jumbotron {
+    height: 700px;
 }

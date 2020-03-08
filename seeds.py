@@ -17,6 +17,7 @@ def kaboom():
     Heart.query.delete()
     Post.query.delete()
     User.query.delete()
+    Company.query.delete()
 
 
 def load_users():
@@ -49,10 +50,10 @@ def load_posts():
     # Read posts.txt file and insert data
     for row in open("seed_data/posts.txt"):
         row = row.rstrip()
-        post_id, user_id, post_text = row.split("|")
+        post_id, display_name, post_text = row.split("|")
 
         post = Post(post_id=post_id,
-                    user_id=user_id,
+                    display_name=display_name,
                     post_text=post_text)
 
         # We need to add to the session or it won't ever be stored
@@ -70,10 +71,10 @@ def load_hearts():
     # Read posts.txt file and insert data
     for row in open("seed_data/hearts.txt"):
         row = row.rstrip()
-        heart_id, user_id, post_id, heart_type = row.split("|")
+        heart_id, display_name, post_id, heart_type = row.split("|")
 
         heart = Heart(heart_id=heart_id,
-                    user_id=user_id,
+                    display_name=display_name,
                     post_id=post_id,
                     heart_type=heart_type)
 
