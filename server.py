@@ -582,6 +582,7 @@ def show_display_name_details(display_name):
 def datetimeformat(value, format='%H:%M / %d-%m-%Y'):
     return value.strftime(format)
 
+# The filter below is reproduced from https://stackoverflow.com/questions/1551382/user-friendly-time-format-in-python/1551394#1551394. 
 
 def humanize_ts(time=False):
     """
