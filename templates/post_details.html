@@ -1,40 +1,41 @@
 {% extends 'base.html' %}
 {% block content %}
 
-  <p>Post {{ post.post_id }} by {{ user.display_name }}:</p>
-        
+<h1 style="text-align:left">Post details</h1>
+
+      Posted {{ post.posted_at | humanize }} by <a href="/users/{{ post.display_name }}"><b>{{ post.display_name }}</b></a>
+        <p> {{ post.posted_at }} </p>
+        <div id="brightnews-post">
+        <div id="post-guts">
+          <a href="/posts/{{ post.post_id }}">
+        {{ post.post_text | safe }}
+          </a>
+        </div>
+        </div>
     
-  {{ post.post_text | safe }}
+        <div id="hearts">
+          {% if post.hearts %}
+              {% for heart in post.hearts %}
+                {{ heart.heart_type }} by <a href="/users/{{ heart.display_name }}"><b>{{ heart.display_name }}</b></a>
+                <br>
+              {% endfor %}
+          {% endif %}
 
-  <p> {{ post.posted_at }} </p>
-
-  {% if user.user_id not in post.hearts %}
-
-     <form action="/posts/{{ post.post_id }}/heart" method="POST"> 
-      
-        <input type="submit" class="btn btn-info" value="Heart!" id="heart">
-      </form>
-
-  {% endif %}
-
-
-      {% if post.hearts %}
-        
-          {% for heart in post.hearts %}
-            <li style="list-style: none;"> {{ heart.heart_type }} by User {{ heart.display_name }} </li>
-          {% endfor %}
-        
-      {% endif %}
+          <form action="/posts/{{ post.post_id }}/heart" method="POST"> 
+                        
+            <input type="submit" class="btn btn-danger" value="Heart!" id="heart">
+          </form>
+       
 
 
       {% if user.email == session['email'] %}
-      <br> 
-      <br>
+      
       <form action="/posts/{{ post.post_id }}/delete" method="DELETE"> 
       
         <input type="submit" class="btn btn-info" value="Delete Post" id="delete">
       </form>
       {% endif %}
+    </div>
 
       <a href="/">Return to BrightNews</a> 
 

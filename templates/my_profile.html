@@ -9,31 +9,37 @@
     <a href="/messages">View my messages</a></h5>
 
 
-  <ul style="list-style: none;">
+  <!-- <ul style="list-style: none;"> -->
 
     
-
+<div id="post-wrapper">
   <h4>Contact Info:</h4>
 
-  <li style="border-style:solid; background-color:#f3edf8; border-color:#ece6ff; border-radius: 10px">{{ user.email }} </li>
 
-  </ul>
+  <div id="brightnews-post">
+
+    {{ user.email }}
+  </div>
+
+  <!-- </ul> -->
   {% if user.posts %}
 
   <br>
-  <ul style="list-style: none;">
-  <h4>Posts:</h4>
+  <!-- <ul style="list-style: none;"> -->
+  <h4>Posts by me:</h4>
   
-    {% for post in user.posts %}
-      <li style="border-style:solid; background-color:#f3edf8; border-color:#ece6ff; border-radius: 10px">
-        Posted {{ post.posted_at | humanize }} by <b>{{ post.display_name }}</b> | <a href="/posts/{{ post.post_id }}">
-          Read full post</a>
+    {% for post in user.posts|sort(attribute='posted_at', reverse = True) %}
+        Posted {{ post.posted_at | humanize }} 
             <br>
+            <div id="brightnews-post">
             <br>
-          
-            {{ post.post_text | safe }}
+            <div id="post-guts">
+              <a href="/posts/{{ post.post_id }}">
+                {{ post.post_text | safe }}
+                </a>
             <br>
-        
+          </div>
+        </div>
         
               <!-- {% if post.hearts %}
                   {% for heart in post.hearts %}
@@ -42,7 +48,6 @@
                   {% endfor %}
               {% endif %} -->
              
-      </li>
       <br>
     {% endfor %}
     
@@ -57,13 +62,14 @@
       <h4> Favorited posts:</h4>
   
 
-        {% for heart in user.hearts %}
-            <li style="border-style:solid; background-color:#f3edf8; border-color:#ece6ff; border-radius: 10px">
+        {% for heart in user.hearts|sort(attribute='hearted_at', reverse = True) %}
+            <div id="brightnews-post">
               <a href="/posts/{{ heart.post_id }}">{{ heart.post_id }} </a> <br>
-            </li>
+            </div>
 
         {% endfor %}
 
-      </li>
     {%endif %}
+
+  </div>
 {% endblock %}
