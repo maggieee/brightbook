@@ -2,19 +2,30 @@
 {% block content %}
 
 <!-- include summernote css/js -->
-<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.15/dist/summernote.min.css" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.15/dist/summernote.min.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.16/dist/summernote-bs4.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.16/dist/summernote-bs4.min.js"></script>
 
 <!-- include css for emoji plugin -->
-<link href="tam-emoji/css/emoji.css" rel="stylesheet">
+<!-- <link href="tam-emoji/css/emoji.css" rel="stylesheet"> -->
 
+<div class="row">
+  <div class="col-sm-1">
+    
+  </div>
+
+  <div class="col-sm-10">
 
 <h2 class="title">Write New Post</h2>
 <form method="post" action="/create_post">
-  <textarea id="summernote" name="editordata"></textarea>
-  <input type=submit class='btn btn-warning btn-block' value=Post />
+  <textarea id="summernote" name="editordata" required></textarea>
+  <input type=submit class='btn btn-warning btn-block' value=Post>
 </form>
+<br>
+</div>
 
+<div class="col-sm-1">
+    
+</div>
 
 <script>
 $(document).ready(function() {

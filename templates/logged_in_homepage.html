@@ -4,18 +4,19 @@
 
 <div class="row">
     <div class="col-sm-9">
-      <div class="card">
-        <div class="card-body">
+      <!-- <div class="card">
+        <div class="card-body"> -->
             <h1 style="text-align:left">Newsfeed</h1>
 
-            <h4><a href="/create_post">Write new post</a> </h4>
+            <h4><a href="/create_post"> <i class="fa fa-pencil fa-flip-horizontal"></i> Write new post </i> </a> </h4>
+            
             
             <div id="post-wrapper">
               {% for post in posts %}
                 <!-- <li style="border-style:solid; background-color:#f3e8fc; border-color:#cbbdfc; border-radius: 10px; padding: 10px"> -->
                   
                   
-                  Posted {{ post.posted_at | humanize }} by <a href="/users/{{ post.user_id }}"><b>User {{ post.user_id }}</b>
+                  Posted {{ post.posted_at | humanize }} by <a href="/users/{{ post.display_name }}"><b>{{ post.display_name }}</b>
                       <br>
                       <div id="brightnews-post">
                       <div id="post-guts">
@@ -28,7 +29,7 @@
                       <div id="hearts">
                         {% if post.hearts %}
                             {% for heart in post.hearts %}
-                              {{ heart.heart_type }} by User {{ heart.user_id }} 
+                              {{ heart.heart_type }} by <a href="/users/{{ heart.display_name }}"><b>{{ heart.display_name }}</b></a>
                               <br>
                             {% endfor %}
                         {% endif %}
@@ -45,23 +46,24 @@
                 <br>
               {% endfor %}
             </div>
-        </div>
-      </div>
+        <!-- </div>
+      </div> -->
     </div>
     <div class="col-sm-3">
       <div class="card-maggie">
         <div class="card-body">
-          <img src="/static/images/bb_logo.png" width="170px">
-          <h5 class="card-title">Stay in touch</h5>
+          <img src="/static/images/B (18).png" width="170px">
+          <h4 class="card-title">Stay in touch</h4>
           <p class="card-text">Go to the BrightBook user directory to see profiles and message other BrightBookers.</p>
           <a href="/users" class="btn btn-info">Browse users</a>
-        </div>
+        <!-- </div>
       </div>
-    </div>
-    <div class="col-sm-3">
+    
         <div class="card-maggie">
-          <div class="card-body">
-            <h5 class="card-title">Get a job</h5>
+          <div class="card-body"> -->
+        <br>
+        <br>
+            <h4 class="card-title">Get a job</h4>
             <p class="card-text">See companies who have hired Hackbrighters and have open positions now.</p>
             <a href="/hiring_posts" class="btn btn-info">Go to Hiring</a>
           </div>

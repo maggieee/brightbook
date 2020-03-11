@@ -9,63 +9,65 @@
 
 
   <h2>About {{ user.display_name }}:</h2>
-  <h6><a href="/create_message/{{ user.user_id }}">
+  <h5><a href="/create_message/{{ user.user_id }}">
     <td><img src="{{ user.avatar(128) }}"></td>
-    Send {{ user.display_name }} a message </a> </h6>
+    Send {{ user.display_name }} a message </a> </h5>
 
 
 
 <!-- Code for everybody -->
 
-  <ul style="list-style: none;">
+<div id="post-wrapper">
 
-  <h5>Email:</h5>
-  <li style="border-style:solid; background-color:#f3edf8; border-color:#ece6ff; border-radius: 10px"> {{ user.email }} </li>
+ 
+
+  <h4>Email:</h4>
+
+  <div id="brightnews-post">{{ user.email }} </div>
       
-  </ul>
   
   {% if user.posts %}
 
   <br>
-  <ul style="list-style: none;">
-  <h5>Posts:</h5>
-    {% for post in user.posts %}
-      <li style="border-style:solid; background-color:#f3edf8; border-color:#ece6ff; border-radius: 10px">
-      <a href="/posts/{{ post.post_id }}">
-        {{ post.post_text | safe }} </a> <br>
-        Posted {{ post.posted_at | humanize }}
+  
+ 
+
+      <h4>Posts by {{ user.display_name }}:</h4>
+  
+      {% for post in user.posts|sort(attribute='posted_at', reverse = True) %}
+          Posted {{ post.posted_at | humanize }} 
+              <br>
+              <div id="brightnews-post">
+              <br>
+              <div id="post-guts">
+                <a href="/posts/{{ post.post_id }}">
+                  {{ post.post_text | safe }}
+                  </a>
+              <br>
+            </div>
+          </div>
+        
+               
         <br>
-        <br>
-
-          <!-- {% if post.hearts %}
-          
-            {% for heart in post.hearts %}
-              {{ heart.heart_type }}
-            {% endfor %}
-
-          {% endif %} -->
-
-      </li>
-      <br>
     {% endfor %}
 
-  </ul>
   {% endif %}
 
     <br>
-      
-  <ul style="list-style: none;">
-    {% if user.hearts %}
-      <h5><3'd posts:</h5>
+
+  {% if user.hearts %}
+      <h4> Favorited posts:</h4>
   
-        {% for heart in user.hearts %}
-            <li style="border-style:solid; background-color:#f3edf8; border-color:#ece6ff; border-radius: 10px">
+
+        {% for heart in user.hearts|sort(attribute='hearted_at', reverse = True) %}
+            <div id="brightnews-post">
               <a href="/posts/{{ heart.post_id }}">{{ heart.post_id }} </a> <br>
-            </li>
-            <br>
+            </div>
+
         {% endfor %}
 
-      </li>
     {%endif %}
-  </ul>
+
+
+</div>
 {% endblock %}

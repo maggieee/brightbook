@@ -218,7 +218,9 @@ def show_create_message_page(user_id):
 
     # form = CreateMessageForm()
 
-    return render_template("create_message.html", recipient=user_id)
+    user = User.query.filter_by(user_id=user_id).first_or_404()
+
+    return render_template("create_message.html", recipient=user_id, user=user)
 
 
 @app.route('/create_message', methods=["POST"])
@@ -228,14 +230,17 @@ def create_message():
     sender = get_current_user_from_session()
     recipient = request.form.get('recipient')
 
-    new_message = Message(sender=sender.user_id, recipient=recipient, subject=request.form.get('subject'),
+    r = User.query.filter_by(user_id=recipient).first_or_404()
+    recipient_display_name = r.display_name
+
+    new_message = Message(sender=sender.display_name, recipient=recipient, subject=request.form.get('subject'),
                           contents=request.form.get('editordata'))
 
     add_and_commit_thing_to_database(new_message)
 
-    flash(f"Message sent to User {recipient}!")
+    flash(f"Message sent to {recipient_display_name}!")
 
-    return redirect(f"/users/{recipient}")
+    return redirect(f"/users")
 
 @app.route('/create_hiring_post')
 def show_create_hiring_post_page():
@@ -254,7 +259,7 @@ def create_hiring_post():
     new_post = create_new_hiring_post_from_summernote(user)
     add_and_commit_thing_to_database(new_post)
 
-    return render_template("hiring_post_details.html", hiring_post=new_post, user=user)
+    return redirect("/hiring_posts")
 
 @app.route('/create_post')
 def show_create_post_page():
@@ -273,7 +278,9 @@ def create_post():
     new_post = create_new_post_from_summernote(user)
     add_and_commit_thing_to_database(new_post)
 
-    return render_template("post_details.html", post=new_post, user=user)
+    flash("Post successful!")
+
+    return redirect("/")
 
 
 @app.route("/get_company_status")
@@ -281,6 +288,24 @@ def show_company_status():
     """Get and show a company's status."""
 
     return render_template("company_status.html")
+
+
+@app.route("/hiring_posts/<hiring_post_id>")
+def show_hiring_post_details(hiring_post_id):
+    """Show hiring post details."""
+
+    hiring_post = HiringPost.query.filter_by(hiring_post_id=hiring_post_id).first_or_404()
+
+    display_name = hiring_post.display_name
+
+    user = User.query.filter_by(display_name=display_name).first_or_404()
+
+    email = session['email']
+    current_user = User.query.filter_by(email=email).first_or_404()
+
+    return render_template("hiring_post_details.html", hiring_post=hiring_post, user=user,
+                           current_user=current_user)
+
 
 @app.route('/hiring_posts')
 def show_hiring_posts():
@@ -405,9 +430,9 @@ def show_post_details(post_id):
 
     post = Post.query.filter_by(post_id=post_id).first_or_404()
 
-    user_id = post.user_id
+    display_name = post.display_name
 
-    user = User.query.filter_by(user_id=user_id).first_or_404()
+    user = User.query.filter_by(display_name=display_name).first_or_404()
 
     email = session['email']
     current_user = User.query.filter_by(email=email).first_or_404()
@@ -442,21 +467,21 @@ def add_heart(post_id):
     print(request.path)
 
     post = Post.query.filter_by(post_id=post_id).first_or_404()
-    user_id = post.user_id
-    user = User.query.filter_by(user_id=post.user_id).first_or_404()
+    display_name = post.display_name
+    user = User.query.filter_by(display_name=post.display_name).first_or_404()
 
     email = session['email']
     current_user = User.query.filter_by(email=email).first_or_404()
 
     new_heart = Heart(
-        post_id=post_id, user_id=current_user.user_id, heart_type=u"❤️")
+        post_id=post_id, display_name=current_user.display_name, heart_type=u"❤️")
 
     db.session.add(new_heart)
     db.session.commit()
 
     flash("Post <3'd")
 
-    return redirect(f"/posts/{post_id}")
+    return redirect(f"/")
 
 
 # @app.route("/profile/<user_id>")
@@ -540,11 +565,11 @@ def redirect_to_logout():
     return redirect("/logout")
 
 
-@app.route("/users/<user_id>")
-def show_user_id_details(user_id):
+@app.route("/users/<display_name>")
+def show_display_name_details(display_name):
     """Show user details."""
 
-    user = User.query.filter_by(user_id=user_id).first_or_404()
+    user = User.query.filter_by(display_name=display_name).first_or_404()
 
     if session['email'] == user.email:
         return render_template("my_profile.html", user=user)
@@ -557,6 +582,7 @@ def show_user_id_details(user_id):
 def datetimeformat(value, format='%H:%M / %d-%m-%Y'):
     return value.strftime(format)
 
+# The filter below is reproduced from https://stackoverflow.com/questions/1551382/user-friendly-time-format-in-python/1551394#1551394. 
 
 def humanize_ts(time=False):
     """

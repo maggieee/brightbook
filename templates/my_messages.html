@@ -7,21 +7,23 @@
 <h2>My Messages</h2>
 
     {% if messages %}
-    <ul style="list-style: none;">
+
+    <div id="post-wrapper">
+    
     {% for message in messages %}
-    <li style="border-style:solid; background-color:#f3edf8; border-color:#ece6ff; border-radius: 10px; padding: 10px">
+    <div id="brightnews-post">
         Sent at: {{ message.sent_at }} <br>
-        From: User {{ message.sender }} <br>
+        From: {{ message.sender }} <br>
         Subject: {{ message.subject }} <br>
         Body: <a href="/messages/{{ message.message_id }}">View message</a>
-        <form action="/messages/{{ message.message_id }}/delete" method="DELETE"> 
+        <form action="/messages/{{ message.message_id }}/delete" style="text-align:right" method="DELETE"> 
 
             <input type="submit" value="Delete Message" class="btn btn-light" id="delete">
             </form>
-    </li>
-    <br>
+    
+    </div>
     {% endfor %}
-    </ul>
+    </div>
 
     {% endif %} 
 

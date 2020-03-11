@@ -1,13 +1,20 @@
 {% extends 'base.html' %}
 {% block content %}
 
-  <p>Post {{ hiring_post.hiring_post_id }} by {{ user.display_name }}:</p>
-        
-    
-  {{ hiring_post.post_text | safe }}
+<div id="post-wrapper">
 
+  <p>Post {{ hiring_post.hiring_post_id }} by <a href="/users/{{ user.display_name }}"><b>{{ user.display_name }}</b></a>:</p>
   <p> {{ hiring_post.posted_at }} </p>
+  <div id="brightnews-post">
+  <div id="post-guts">
+  {{ hiring_post.post_text | safe }}
+  </div>
+  </div>
+
+  
 
       <a href="/hiring_posts">Return to Hiring Posts</a> 
 
+
+</div>
 {% endblock %}

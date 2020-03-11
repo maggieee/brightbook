@@ -19,6 +19,8 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
 
+    <div class="container">
+
     <title>BrightBook</title>
     <ul class="flashes">
       {% for message in get_flashed_messages() %}
@@ -28,9 +30,10 @@
   </head>
 
   <body>
-    <div class="container">
+    <div class="row">
+      <div class="col-sm-4">
 
-  <div class="post-wrapper">
+  <div id="post-wrapper">
   <h3>About {{ company.company_name }}:</h3>
 
   <div id="brightnews-post">
@@ -40,12 +43,17 @@
   {% endif %} -->
 
   {% if company.hired_hackbrighters %} 
-  {{ company.company_name }} has hired a Hackbrighter for her first SWE job. 
+  <h4>Hired Hackbrighters?</h4>
+  <p>{{ company.company_name }} has hired a Hackbrighter for her first SWE job. </p>
   {% endif %}
+
+  <h4>Website</h4>
 
   <p><a href="{{ company.job_listings_link }}">{{ company.job_listings_link }} </a> </p>
 
   </div>
+</div>
+</div>
 </div>
   
 </body>
