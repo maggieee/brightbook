@@ -30,7 +30,7 @@ class FlaskTests(TestCase):
 
         result = self.client.get('/')
         self.assertEqual(result.status_code, 200)
-        self.assertIn(b"Log in or register", result.data)
+        self.assertIn(b"The future's so bright", result.data)
 
     def test_login_page(self):
         """Check that the login page loads for a logged-out user."""
@@ -96,7 +96,7 @@ class FlaskTests(TestCase):
 
         result = self.client.get('/create_message/4', follow_redirects=True)
         self.assertEqual(result.status_code, 200)
-        self.assertIn(b"Write New Message", result.data)
+        self.assertIn(b"Write a new message to", result.data)
 
     # def test_post_details(self):
     #     """Test that post details page renders."""

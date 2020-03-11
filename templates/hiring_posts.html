@@ -1,24 +1,10 @@
 {% extends 'base.html' %}
 {% block content %}
 
+<div class="row">
 
-<h2>Companies</h2>
-<h4><a href="/create_company">Submit a new company</a></h4>
+  <div class="col-sm-8">
 
-  
-<form id="company-search-form" action="/company_search">
-  <select id="company-search" class="company-search" name="company_name">
-    {% for company in companies %}
-    <option value="{{ company.company_name }}">{{ company.company_name }}</option>
-    {% endfor %}
-  </select>
-  <input type=submit class="btn btn-info" value="Search!">
-</form>
-
-<!-- <div id="company-has-hired-hackbrighters"></div> -->
-<div id="company-job-listings"></div>
-
-<br>
 
 
 
@@ -51,6 +37,31 @@
     {% endfor %}
     </div>
   <!-- </ul> -->
+</div>
+
+<div class="col-sm-4">
+
+  <h2>Companies</h2>
+<h4><a href="/create_company">Submit a new company</a></h4>
+
+  
+<form id="company-search-form" action="/company_search">
+  <select id="company-search" class="company-search" name="company_name">
+    {% for company in companies %}
+    <option value="{{ company.company_name }}">{{ company.company_name }}</option>
+    {% endfor %}
+  </select>
+  <br>
+  <input type=submit class="btn btn-info" value="Search!">
+</form>
+
+<!-- <div id="company-has-hired-hackbrighters"></div> -->
+<div id="company-job-listings"></div>
+
+<br>
+</div>
+
+</div>
 
   <script src="/static/js/company_search.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>

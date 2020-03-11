@@ -7,19 +7,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- include libraries(jQuery, bootstrap) -->
-    <link
-      href="https://stackpath.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-      rel="stylesheet"
-    />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
     <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css?family=Patua+One|Poppins&display=swap" rel="stylesheet">
     <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
     <!-- <link rel="stylesheet" type="text/css" href="static/styles.css" /> -->
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
 
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
+<script
+src="https://code.jquery.com/jquery-3.4.1.js"
+integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+   
 
     <title>BrightBook</title>
     <!-- <ul class="flashes" style="list-style: none;"> -->
@@ -34,45 +38,43 @@
   <body>
     <div class="container">
       <br>
-      <nav class="navbar navbar-light bg-info" style="background-color:white; border-color:#e9e7e7; border-width: 1px;">
-          <div class="navbar-nav">
-
-            
-            <a class="nav-item nav-link" style="font-size: medium;" href="/"><img src="/static/images/BrightBook (4).png" width="150"></a> 
+      <nav class="navbar navbar-light border">
+            <a class="nav-item nav-link" style="font-size: medium;" href="/"><img src="/static/images/BrightBook (13).png" width="150"></a> 
             {% if 'email' in session: %}
             <a class="nav-item nav-link" style="font-size: medium;" href="/users"> Stay in touch</a> 
-            <a class="nav-item nav-link" style="font-size: medium;" href="/hiring_posts">
-               Get a job</a> 
+            <a class="nav-item nav-link" style="font-size: medium;" href="/hiring_posts"> Get a job</a> 
 
-            <a class="nav-item nav-link" href="/logout"><i class="fa fa-hand-peace-o" aria-hidden="true"></i> Log out</a>
+            <a class="nav-item nav-link ml-auto" href="/logout"><i class="fa fa-hand-peace-o" aria-hidden="true"></i> Log out</a>
             {% endif %}
 
             {% if 'email' not in session: %}
+            <a class="nav-item nav-link ml-auto" href="/register">Register</a>
             <a class="nav-item nav-link" href="/login">Log in</a> 
-            <a class="nav-item nav-link" href="/register">Register</a>
             {% endif %}
 
-          </div>
+        
       </nav>
+      <br>
     
     {% block content %} put your content here {% endblock %}
-
+<br>
+    </div>
   <div class="container">
-    <div class="card text-right">
-      <div class="card-header">
+    <div class="card col-12 text-right">
+      <!-- <div class="card-header">
           
-      </div>
-      <div class="card-body" >
-        <h5 class="card-title">   </h5>
-        <p class="card-text" style="color:#f3fbfc;">__________________</p>
+      </div> -->
+      <!-- <div class="card-body" >
+        <h5 class="card-title">   </h5> -->
+        <!-- <p class="card-text" style="color:#f3fbfc;">__________________</p> -->
         <div class="maggie-footer">
-        <a href="#" class="btn btn-primary">Get on the mailing list!</a>
+        <a href="#" class="btn btn-primary" id="footer-button">Get on the mailing list!</a>
       
       <div class="card-footer text-muted">
         © 2020 BrightBook, Inc.
       </div>
       
-    </div>
+    <!-- </div> -->
     </div>
     </div>
     <br>

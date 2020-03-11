@@ -16,6 +16,16 @@ body {
     padding: 10px;
 }
 
+.logo {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.login-header-with-logo {
+    text-align:center;
+    margin:5px;
+}
+
 body {
     font-family: 'Poppins', sans-serif;
   }
@@ -90,8 +100,16 @@ label {
 }
 
 .navbar-nav {
-    /* padding-top: 10px;
-    padding-right: 10px; */
+    padding-top: 5px;
+    /* padding-right: 10px; */ 
+}
+
+.navbar {
+    background-color:white; 
+    border-color:#c9c8c8; 
+    border-width: 1px;
+    border-radius: 8px;
+    padding: 0px;
 }
 
 .nav-link {
@@ -99,7 +117,7 @@ label {
     padding-left: 10px;
     /* padding-top: 0px;
     border-top: 0px;
-    margin-top: 0px; */ */
+    margin-top: 0px; */
     /* color: rgb(255, 68, 68); */
 }
 
@@ -107,13 +125,17 @@ label {
     height: 700px;
 }
 
-.maggie-footer {
+/* .maggie-footer {
     background-color:#ffffff; 
     padding: 10px; 
     border-radius: 5px; 
     border-width: 1px; 
     border-color:#e9e7e7;
     border-style: solid;
+} */
+
+#footer-button {
+    margin: 5px;
 }
 
 .form-control {
