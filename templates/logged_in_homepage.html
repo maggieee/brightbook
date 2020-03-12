@@ -30,7 +30,7 @@
                       <div id="hearts">
                         {% if post.hearts %}
                             {% for heart in post.hearts %}
-                              {{ heart.heart_type }} by <a href="/users/{{ heart.display_name }}"><b>{{ heart.display_name }}</b></a>
+                              {{ heart.heart_type }}by <a href="/users/{{ heart.display_name }}"><b>{{ heart.display_name }}</b></a>
                               <br>
                             {% endfor %}
                         {% endif %}
