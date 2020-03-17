@@ -1,5 +1,5 @@
 # BrightBook
-BrightBook is a full-stack web application that is a social network for Hackbrighters. It allows users to post updates and job listings, add company information about companies that hire bootcamp graduates, and favotie posts. 
+BrightBook is a full-stack web application that is a social network for Hackbrighters. It allows users to post updates and job listings, add company information about companies that hire bootcamp graduates, and favorite posts. 
 
 Brightbook was developed at Hackbright Academy over four weeks in Feb-March 2020. 
 
