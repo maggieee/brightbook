@@ -17,15 +17,15 @@ You can watch a screencast of BrightBook here: https://www.loom.com/share/9c9979
 * Send and receive messages from other users
 
 ## Technologies and stack
-**Backend:**
+**Backend:**  
 Python, Flask, SQAlchemy, PostgreSQL, unittest
 
 **Frontend:**   
 JavaScript, jQuery, AJAX, Jinja, jQuery, HTML5, CSS3, Bootstrap 
 
 ## Features
-**Posts**
-**Messages**
+**Posts**  
+**Messages **.  
 **Hiring Posts**
 **User Directory**
 **Company Directory**
