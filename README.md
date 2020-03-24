@@ -25,7 +25,7 @@ JavaScript, jQuery, AJAX, Jinja, jQuery, HTML5, CSS3, Bootstrap
 
 ## Features
 **Posts**  
-**Messages**  
-**Hiring Posts** 
-**User Directory** 
-**Company Directory**
+**Messages**   
+**Hiring Posts**  
+**User Directory**  
+**Company Directory**  
