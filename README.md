@@ -24,8 +24,8 @@ Python, Flask, SQAlchemy, PostgreSQL, unittest
 JavaScript, jQuery, AJAX, Jinja, jQuery, HTML5, CSS3, Bootstrap 
 
 ## Features
-** Posts **
-** Messages **
-** Hiring Posts **
-** User Directory **
-** Company Directory **
+**Posts**
+**Messages**
+**Hiring Posts**
+**User Directory**
+**Company Directory**
