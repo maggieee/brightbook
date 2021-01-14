@@ -1,8 +1,11 @@
 {% extends 'base.html' %}
 {% block content %}
 
+
+
 <h1 style="text-align:left">Post details</h1>
 
+<div id="post-wrapper">
       Posted {{ post.posted_at | humanize }} by <a href="/users/{{ post.display_name }}"><b>{{ post.display_name }}</b></a>
         <p> {{ post.posted_at }} </p>
         <div id="brightnews-post">
@@ -12,6 +15,7 @@
           </a>
         </div>
         </div>
+</div>
     
         <div id="hearts">
           {% if post.hearts %}
